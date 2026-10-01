@@ -1,0 +1,2 @@
+model,n_components,covariance_type,n_init,reg_covar,development_silhouette,development_davies_bouldin,development_calinski_harabasz,development_aic,development_bic,holdout_silhouette,holdout_davies_bouldin,holdout_calinski_harabasz,holdout_log_likelihood,holdout_assignment_confidence
+Gaussian Mixture Model,2,tied,10,1e-06,0.12541128892253406,2.5996063674627186,3056.768093261229,491503.7703521182,493291.87037660216,0.06532942303283565,3.7254599634437366,704.0367285712437,-6.486690050784994,0.9076108834341536
