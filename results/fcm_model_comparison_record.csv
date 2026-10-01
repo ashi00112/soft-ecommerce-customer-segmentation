@@ -1,0 +1,2 @@
+algorithm,selected_K,silhouette_dev,silhouette_holdout,davies_bouldin_dev,davies_bouldin_holdout,calinski_harabasz_dev,calinski_harabasz_holdout,supports_soft_membership,soft_measure,fpc_dev,fpc_holdout,converged,stability_method,stability_ARI,business_interpretable
+FCM,4,0.064314,0.061701,2.978749,2.979027,2558.748651,642.931401,True,Fuzzy membership,0.731309,0.72966,True,K-Means-informed perturbation robustness,1.0,True
