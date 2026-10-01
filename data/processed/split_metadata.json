@@ -1,0 +1,99 @@
+{
+  "original_row_count": 50000,
+  "dataset_rows": 50000,
+  "development_row_count": 40000,
+  "development_rows": 40000,
+  "holdout_row_count": 10000,
+  "holdout_rows": 10000,
+  "split_ratio": {
+    "development": 0.8,
+    "holdout": 0.2
+  },
+  "development_ratio": 0.8,
+  "holdout_ratio": 0.2,
+  "random_state": 42,
+  "shuffle": true,
+  "split_type": "random development-holdout split for unsupervised clustering",
+  "raw_selected_feature_count": 12,
+  "raw_model_feature_count": 12,
+  "processed_feature_count": 18,
+  "processed_model_feature_count": 18,
+  "numerical_feature_names": [
+    "tenure_months",
+    "total_purchases",
+    "avg_order_value_usd",
+    "days_since_last_purchase",
+    "return_count",
+    "complaint_count",
+    "satisfaction_score",
+    "email_open_rate",
+    "click_through_rate",
+    "conversion_rate"
+  ],
+  "numeric_features": [
+    "tenure_months",
+    "total_purchases",
+    "avg_order_value_usd",
+    "days_since_last_purchase",
+    "return_count",
+    "complaint_count",
+    "satisfaction_score",
+    "email_open_rate",
+    "click_through_rate",
+    "conversion_rate"
+  ],
+  "categorical_feature_names": [
+    "shopping_channel",
+    "device_used"
+  ],
+  "categorical_features": [
+    "shopping_channel",
+    "device_used"
+  ],
+  "final_processed_feature_names": [
+    "tenure_months",
+    "total_purchases",
+    "avg_order_value_usd",
+    "days_since_last_purchase",
+    "return_count",
+    "complaint_count",
+    "satisfaction_score",
+    "email_open_rate",
+    "click_through_rate",
+    "conversion_rate",
+    "shopping_channel_In-Store",
+    "shopping_channel_Marketplace",
+    "shopping_channel_Mobile App",
+    "shopping_channel_Online",
+    "device_used_Desktop",
+    "device_used_Mobile",
+    "device_used_Multiple",
+    "device_used_Tablet"
+  ],
+  "processed_feature_names": [
+    "tenure_months",
+    "total_purchases",
+    "avg_order_value_usd",
+    "days_since_last_purchase",
+    "return_count",
+    "complaint_count",
+    "satisfaction_score",
+    "email_open_rate",
+    "click_through_rate",
+    "conversion_rate",
+    "shopping_channel_In-Store",
+    "shopping_channel_Marketplace",
+    "shopping_channel_Mobile App",
+    "shopping_channel_Online",
+    "device_used_Desktop",
+    "device_used_Mobile",
+    "device_used_Multiple",
+    "device_used_Tablet"
+  ],
+  "preprocessing_fit_scope": "development set only",
+  "fitted_on_development_only": true,
+  "business_fields_excluded_from_clustering": [
+    "customer_lifetime_value_usd",
+    "churn_risk_score"
+  ]
+}

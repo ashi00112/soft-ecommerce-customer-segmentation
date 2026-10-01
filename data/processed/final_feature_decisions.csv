@@ -1,0 +1,54 @@
+feature,dtype,unique,missing_pct,role,final_decision,reason
+customer_id,str,50000,0.0,identifier,keep_aside,Retain only to identify customers after clustering
+customer_segment,str,4,0.0,existing_segment,interpretation_only,Existing segmentation; must not define new clusters
+segment_category,str,6,0.0,existing_segment,interpretation_only,Existing hard segment; use only to interpret new clusters
+age,int64,67,0.0,demographic_numeric,profiling_only,"Retain for cluster profiling, not primary behavioural clustering"
+age_group,str,6,0.0,derived_category,exclude,Derived from age
+gender,str,2,0.0,demographic_nominal,profiling_only,Retain for cluster profiling
+country,str,17,0.0,geographic_nominal,profiling_only,Retain for cluster profiling
+city,str,157,0.0,geographic_nominal,profiling_only,High cardinality; profile clusters rather than expand clustering dimensions
+income_bracket,str,6,0.0,demographic_ordinal,profiling_only,Retain for cluster profiling
+education_level,str,5,0.0,demographic_nominal,profiling_only,Retain for cluster profiling
+employment_type,str,5,0.0,demographic_nominal,profiling_only,Retain for cluster profiling
+marital_status,str,4,0.0,demographic_nominal,profiling_only,Retain for cluster profiling
+tenure_months,int64,119,0.0,behavior_numeric,include_primary,Customer relationship duration
+total_purchases,int64,200,0.0,behavior_numeric,include_primary,Detailed purchase activity
+avg_order_value_usd,float64,39370,0.0,behavior_numeric,include_primary,Average order-value behaviour
+total_spent_usd,float64,49334,0.0,derived_numeric,exclude,Redundant: total_purchases × avg_order_value_usd
+purchase_frequency,str,5,0.0,behavior_ordinal,profiling_only,Broad category overlaps with richer purchase/recency variables
+days_since_last_purchase,int64,366,0.0,behavior_numeric,include_primary,Detailed recency; meaningful inactive customers are retained
+preferred_category_1,str,12,0.0,preference_multilabel,optional_experiment,Combine category 1/2/3 into multi-hot indicators if experimentally tested
+preferred_category_2,str,13,33.486,preference_multilabel,optional_experiment,Meaningful missingness; combine with other preference columns if tested
+preferred_category_3,str,13,66.514,preference_multilabel,optional_experiment,Meaningful missingness; combine with other preference columns if tested
+shopping_channel,str,4,0.0,behavior_nominal,include_primary,Low-cardinality shopping-channel behaviour
+device_used,str,4,0.0,behavior_nominal,include_primary,Low-cardinality device behaviour
+payment_method,str,5,0.0,behavior_nominal,profiling_only,Retain for interpretation; not central to primary retention clustering
+return_count,int64,20,0.0,behavior_numeric,include_primary,Return behaviour
+complaint_count,int64,15,0.0,behavior_numeric,include_primary,Complaint behaviour
+satisfaction_score,int64,5,0.0,behavior_ordinal,include_primary,Direct satisfaction measurement
+satisfaction_level,str,5,0.0,derived_category,exclude,Derived from satisfaction_score
+loyalty_tier,str,6,2.544,derived_business,interpretation_only,Existing loyalty/value label; not used to create new clusters
+email_open_rate,float64,1001,0.0,engagement_numeric,include_primary,Email engagement
+click_through_rate,float64,501,0.0,engagement_numeric,include_primary,Click engagement
+conversion_rate,float64,301,0.0,engagement_numeric,include_primary,Conversion behaviour
+social_media_presence,str,157,24.84,multilabel,optional_experiment,Parse into platform indicators if experimentally tested; missingness is retained as absence/not recorded
+customer_lifetime_value_usd,float64,49622,0.0,post_clustering,keep_aside,Used after clustering to assess customer value
+customer_acquisition_cost_usd,float64,17981,0.0,business_numeric,profiling_only,Business metric not central to behavioural clustering
+customer_profitability_usd,float64,49891,0.0,derived_business,exclude,Derived from CLV minus acquisition cost; would reintroduce CLV information
+recency_score,int64,5,0.0,derived_rfm,exclude,Discretized version of detailed recency
+frequency_score,int64,5,0.0,derived_rfm,exclude,Discretized version of detailed purchase frequency
+monetary_score,int64,5,0.0,derived_rfm,exclude,Derived RFM component; avoid mixing raw and derived representations
+rfm_score,int64,13,0.0,derived_rfm,exclude,Exact sum of recency/frequency/monetary scores
+churn_risk_score,int64,98,0.0,post_clustering,keep_aside,Used after clustering for retention prioritization
+customer_health_score,int64,15,0.0,derived_score,exclude,Composite business score; underlying behaviours are preferred
+dataset_year,int64,1,0.0,metadata,exclude,Constant value; provides no clustering information
+customer_value_category,str,5,0.0,derived_category,interpretation_only,Existing value grouping; not a clustering input
+activity_status,str,4,0.0,derived_category,interpretation_only,Derived from recency/activity
+health_status,str,4,0.0,derived_category,interpretation_only,Derived from customer_health_score
+churn_risk_category,str,5,0.0,derived_business,exclude,Derived from churn information reserved for post-clustering use
+rfm_category,str,5,0.0,derived_category,interpretation_only,Existing RFM segmentation
+profitability_category,str,5,0.0,derived_business,exclude,Derived profitability grouping
+engagement_level,str,3,0.0,derived_category,exclude,Existing engagement summary; detailed engagement rates are retained
+behavior_segment,str,4,0.0,existing_segment,interpretation_only,Existing behavioural segmentation; use only for interpretation
+device_preference,str,3,0.0,derived_category,exclude,Deterministic/overlapping representation of device_used
+clv_category,str,3,0.0,derived_business,exclude,"Derived from CLV, which is reserved for post-clustering prioritization"
