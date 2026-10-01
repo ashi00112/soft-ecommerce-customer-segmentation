@@ -1,0 +1,265 @@
+{
+  "algorithm": "K-Means",
+  "rationale": "Hard-clustering benchmark for customer segmentation: partitions customers into K disjoint groups by minimizing within-cluster variance over standardized behavioral/engagement features. customer_id, customer_lifetime_value_usd, and churn_risk_score are excluded from the feature matrix (see Section 1).",
+  "baseline": {
+    "params": {
+      "init": "k-means++",
+      "n_init": 10,
+      "max_iter": 300,
+      "random_state": 42
+    },
+    "k_range": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "metrics_by_k": [
+      {
+        "K": 2,
+        "inertia": 427185.9821602486,
+        "silhouette": 0.12033935194435486,
+        "davies_bouldin": 2.6792006254286576,
+        "calinski_harabasz": 3072.196112680663,
+        "n_iter_": 9,
+        "runtime_sec": 0.336651086807251,
+        "min_cluster_pct": 16.645,
+        "max_cluster_pct": 83.355
+      },
+      {
+        "K": 3,
+        "inertia": 401526.1828388979,
+        "silhouette": 0.07324544499030301,
+        "davies_bouldin": 3.1726305760202123,
+        "calinski_harabasz": 2912.2710619874933,
+        "n_iter_": 29,
+        "runtime_sec": 0.2697622776031494,
+        "min_cluster_pct": 15.0425,
+        "max_cluster_pct": 42.825
+      },
+      {
+        "K": 4,
+        "inertia": 385884.8910099702,
+        "silhouette": 0.06326493078971421,
+        "davies_bouldin": 2.978350209193136,
+        "calinski_harabasz": 2560.544431510796,
+        "n_iter_": 45,
+        "runtime_sec": 0.37753987312316895,
+        "min_cluster_pct": 14.3125,
+        "max_cluster_pct": 32.027499999999996
+      },
+      {
+        "K": 5,
+        "inertia": 372774.2695699112,
+        "silhouette": 0.06266671575217843,
+        "davies_bouldin": 2.9298576194493675,
+        "calinski_harabasz": 2339.568617280534,
+        "n_iter_": 57,
+        "runtime_sec": 0.4488496780395508,
+        "min_cluster_pct": 13.777500000000002,
+        "max_cluster_pct": 21.8325
+      },
+      {
+        "K": 6,
+        "inertia": 363354.5196130272,
+        "silhouette": 0.060861235569108565,
+        "davies_bouldin": 2.6815508110850512,
+        "calinski_harabasz": 2127.4837169706852,
+        "n_iter_": 39,
+        "runtime_sec": 0.586876630783081,
+        "min_cluster_pct": 13.19,
+        "max_cluster_pct": 18.32
+      },
+      {
+        "K": 7,
+        "inertia": 354903.8734566437,
+        "silhouette": 0.060240181127048854,
+        "davies_bouldin": 2.5815883328145515,
+        "calinski_harabasz": 1973.7863935519752,
+        "n_iter_": 105,
+        "runtime_sec": 0.831862211227417,
+        "min_cluster_pct": 12.72,
+        "max_cluster_pct": 14.85
+      },
+      {
+        "K": 8,
+        "inertia": 347555.40576552064,
+        "silhouette": 0.061073796636892226,
+        "davies_bouldin": 2.464293558212116,
+        "calinski_harabasz": 1848.337591429454,
+        "n_iter_": 71,
+        "runtime_sec": 0.9278671741485596,
+        "min_cluster_pct": 12.345,
+        "max_cluster_pct": 12.75
+      }
+    ]
+  },
+  "experiments_tested": {
+    "candidate_K_selection": {
+      "2": [
+        "best silhouette score"
+      ],
+      "8": [
+        "best (lowest) Davies-Bouldin index"
+      ],
+      "4": [
+        "elbow region (max distance-to-chord on the inertia curve)"
+      ]
+    },
+    "hyperparameter_grid": {
+      "init": [
+        "k-means++",
+        "random"
+      ],
+      "n_init": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "max_iter_primary": [
+        300
+      ],
+      "max_iter_fallback_if_capped": 500,
+      "n_tuning_runs": 25
+    },
+    "stability_analysis": {
+      "seed_stability": {
+        "n_seeds": 10,
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "subsample_stability": {
+        "n_subsamples": 5,
+        "subsample_frac": 0.8
+      }
+    }
+  },
+  "optimization_changes": {
+    "2": {
+      "baseline_params": {
+        "init": "k-means++",
+        "n_init": 10,
+        "max_iter": 300
+      },
+      "tuned_params": {
+        "init": "k-means++",
+        "n_init": 10,
+        "max_iter": 300
+      }
+    },
+    "8": {
+      "baseline_params": {
+        "init": "k-means++",
+        "n_init": 10,
+        "max_iter": 300
+      },
+      "tuned_params": {
+        "init": "k-means++",
+        "n_init": 5,
+        "max_iter": 300
+      }
+    },
+    "4": {
+      "baseline_params": {
+        "init": "k-means++",
+        "n_init": 10,
+        "max_iter": 300
+      },
+      "tuned_params": {
+        "init": "random",
+        "n_init": 5,
+        "max_iter": 300
+      }
+    }
+  },
+  "selection_rules": {
+    "rule_1_min_cluster_pct": 5.0,
+    "rule_2_min_mean_ari": 0.9,
+    "rule_3": "average rank of silhouette, Davies-Bouldin, Calinski-Harabasz among survivors; elbow K used as supporting context only, not a hard filter",
+    "elbow_k": 4,
+    "rejected_candidates": {
+      "2": "unstable: mean_ari=0.7096 < 0.9",
+      "8": "unstable: mean_ari=0.2859 < 0.9",
+      "4": "unstable: mean_ari=0.2526 < 0.9"
+    }
+  },
+  "best_config": null,
+  "common_metrics": null,
+  "specific_metric": null,
+  "holdout_metrics": null,
+  "status": "no_stable_configuration",
+  "artifact_paths": {
+    "baseline_results_csv": "../results/kmeans/kmeans_baseline_results.csv",
+    "tuning_results_csv": "../results/kmeans/kmeans_tuning_results.csv",
+    "stability_results_csv": "../results/kmeans/kmeans_stability_results.csv",
+    "elbow_curve_png": "../results/figures/kmeans/kmeans_elbow_curve.png",
+    "metrics_vs_k_png": "../results/figures/kmeans/kmeans_metrics_vs_k.png",
+    "stability_ari_png": "../results/figures/kmeans/kmeans_stability_ari.png",
+    "cluster_centroids_heatmap_png": null,
+    "model": null,
+    "dev_assignments_csv": null,
+    "holdout_assignments_csv": null,
+    "summary_json": "../results/kmeans/kmeans_summary.json"
+  },
+  "candidates_evaluated": [
+    {
+      "K": 2,
+      "init": "k-means++",
+      "n_init": 10,
+      "max_iter": 300,
+      "silhouette": 0.10929197311177834,
+      "davies_bouldin": 2.889898753101995,
+      "calinski_harabasz": 3019.414847682522,
+      "min_cluster_pct": 16.645,
+      "max_cluster_pct": 83.355,
+      "pairwise_ari_mean": 0.6220765235781053,
+      "subsample_ari_mean": 0.797032495033711,
+      "mean_ari": 0.7095545093059081,
+      "runtime_sec": 0.19330382347106934
+    },
+    {
+      "K": 8,
+      "init": "k-means++",
+      "n_init": 5,
+      "max_iter": 300,
+      "silhouette": 0.06037687403561719,
+      "davies_bouldin": 2.4648466835628904,
+      "calinski_harabasz": 1851.3557286266598,
+      "min_cluster_pct": 12.345,
+      "max_cluster_pct": 12.75,
+      "pairwise_ari_mean": 0.26316714043541894,
+      "subsample_ari_mean": 0.3085384766906512,
+      "mean_ari": 0.2858528085630351,
+      "runtime_sec": 0.47429585456848145
+    },
+    {
+      "K": 4,
+      "init": "random",
+      "n_init": 5,
+      "max_iter": 300,
+      "silhouette": 0.06334663544849664,
+      "davies_bouldin": 2.976855090983384,
+      "calinski_harabasz": 2565.1532712059243,
+      "min_cluster_pct": 14.335,
+      "max_cluster_pct": 31.747500000000002,
+      "pairwise_ari_mean": 0.26156151319620186,
+      "subsample_ari_mean": 0.24363714525447513,
+      "mean_ari": 0.2525993292253385,
+      "runtime_sec": 0.1647489070892334
+    }
+  ]
+}
