@@ -1,0 +1,5 @@
+cluster,profile_name,development_customers,development_percent,mean_max_membership,mean_normalized_entropy,interpretation
+1,Inactive / High-Churn-Risk Customers,5731,14.3275,0.8998,0.2081,Very long inactivity and elevated churn risk
+2,Low-Purchase High-Conversion Customers,10836,27.09,0.8043,0.3636,Lower purchase volume but comparatively high conversion
+3,High-Value Active Customers,12471,31.1775,0.79,0.3841,"High purchase volume, high CLV and recent activity"
+4,Low-Engagement Customers,10962,27.405,0.8003,0.3672,Lower purchase volume and comparatively low conversion
