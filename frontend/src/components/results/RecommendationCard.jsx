@@ -17,40 +17,37 @@ export default function RecommendationCard({
   priorityTier,
 }) {
   return (
-    <div className="card result-card recommendation-card">
-      <div className="result-card-header">
-        <div className="card-title-group">
-          <Target className="result-header-icon text-accent" aria-hidden="true" />
-          <div>
-            <h3 className="result-card-title">CRM Action Recommendation</h3>
-            <p className="result-card-subtitle">
-              Deterministic intervention strategy driven by segment archetype &amp; retention priority
-            </p>
-          </div>
+    <div className="card result-card recommendation-card-bold">
+      <div className="rec-bold-header">
+        <div className="rec-bold-kicker-group">
+          <span className="rec-action-badge">RECOMMENDED ACTION</span>
+          <span className="rec-source-pill">Deterministic Strategy Engine</span>
         </div>
-
-        <span className="rec-source-pill">Backend Strategy Engine</span>
+        <h3 className="rec-bold-title">Targeted CRM Intervention</h3>
+        <p className="rec-bold-subtitle">
+          Prescriptive retention action calibrated to customer archetype and retention priority
+        </p>
       </div>
 
-      <div className="recommendation-content">
-        <div className="rec-quote-box">
-          <Lightbulb className="rec-quote-icon" aria-hidden="true" />
-          <p className="rec-text">{recommendation}</p>
+      <div className="rec-bold-body">
+        <div className="rec-bold-quote-box">
+          <Lightbulb className="rec-bold-icon" aria-hidden="true" />
+          <p className="rec-bold-text">{recommendation}</p>
         </div>
 
-        <div className="rec-meta-grid">
-          <div className="rec-meta-item">
-            <span className="rec-meta-label">Target Segment Profile:</span>
-            <span className="rec-meta-value">{clusterName}</span>
+        <div className="rec-bold-meta-grid">
+          <div className="rec-bold-meta-item">
+            <span className="rec-bold-meta-label">Customer Archetype</span>
+            <span className="rec-bold-meta-value">{clusterName}</span>
           </div>
-          <div className="rec-meta-item">
-            <span className="rec-meta-label">Assigned Resource Allocation:</span>
-            <span className="rec-meta-value">
+          <div className="rec-bold-meta-item">
+            <span className="rec-bold-meta-label">Intervention Priority</span>
+            <span className="rec-bold-meta-value">
               {priorityTier === 'High'
                 ? 'High Tier (Immediate Personalized Outreach & Retention Budget)'
                 : priorityTier === 'Medium'
                 ? 'Medium Tier (Targeted Nurture & Re-engagement Automation)'
-                : 'Standard Tier (General Lifecycle Marketing & Organic Engagement)'}
+                : 'Low Tier (General Lifecycle Marketing & Organic Engagement)'}
             </span>
           </div>
         </div>

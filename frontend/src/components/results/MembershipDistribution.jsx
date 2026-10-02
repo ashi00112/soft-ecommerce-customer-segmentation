@@ -9,10 +9,10 @@ const CLUSTER_NAMES = {
 };
 
 const CLUSTER_COLORS = {
-  1: '#f43f5e', // Rose
-  2: '#f59e0b', // Amber
-  3: '#10b981', // Emerald
-  4: '#3b82f6', // Blue
+  1: '#000000', // Black
+  2: '#7D39EB', // Brand Violet
+  3: '#84CC16', // Vibrant Lime / Olive Accent for bar contrast
+  4: '#4C1D95', // Deep Royal Violet
 };
 
 /**

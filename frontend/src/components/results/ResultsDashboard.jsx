@@ -65,8 +65,8 @@ export default function ResultsDashboard({ result, onModify }) {
 
   return (
     <div id="results-dashboard" className="results-dashboard">
-      {/* Results Header Hero */}
-      <section className="results-header-hero card">
+      {/* Results Header Hero: Saturated Black/Violet Brand Block */}
+      <section className="results-header-hero bold-result-hero">
         <div className="hero-top-row">
           <div className="customer-meta">
             <span className="customer-tag-badge">
@@ -79,7 +79,7 @@ export default function ResultsDashboard({ result, onModify }) {
           <button
             type="button"
             onClick={onModify}
-            className="btn btn-secondary btn-sm"
+            className="btn btn-modify-light btn-sm"
           >
             <ArrowLeft className="btn-icon-sm" aria-hidden="true" />
             <span>Modify Input</span>
@@ -89,15 +89,22 @@ export default function ResultsDashboard({ result, onModify }) {
         <div className="hero-main-row">
           {/* Primary Segment */}
           <div className="hero-cluster-assignment">
-            <span className="hero-sublabel">Primary Segment</span>
-            <h2 className="hero-cluster-name">
-              <span className="cluster-id-marker">Cluster {assigned_cluster}:</span> {cluster_name}
-            </h2>
-            <div className="hero-membership-degree">
+            <span className="hero-kicker-lime">PRIMARY SEGMENT</span>
+            <div className="hero-cluster-header-wrap">
+              <span className="hero-cluster-num-badge">0{assigned_cluster}</span>
+              <div>
+                <h2 className="hero-cluster-name">{cluster_name}</h2>
+              </div>
+            </div>
+            <div className="hero-membership-degree-box">
               <Award className="membership-degree-icon" aria-hidden="true" />
-              <span className="membership-degree-label">Membership Degree:</span>
-              <span className="membership-degree-value">{(max_membership * 100).toFixed(1)}%</span>
-              <span className="membership-degree-raw">({max_membership.toFixed(4)})</span>
+              <div className="membership-degree-text-group">
+                <span className="membership-degree-label">Membership Degree</span>
+                <div className="membership-degree-numbers">
+                  <span className="membership-degree-value">{(max_membership * 100).toFixed(1)}%</span>
+                  <span className="membership-degree-raw">({max_membership.toFixed(4)})</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -111,7 +118,7 @@ export default function ResultsDashboard({ result, onModify }) {
             </div>
 
             <div className="hero-score-kpi">
-              <span className="hero-score-label">Priority Score</span>
+              <span className="hero-score-label">Composite Priority Index</span>
               <span className="hero-score-num">{retention_priority_score.toFixed(1)} <small>/ 100</small></span>
             </div>
           </div>

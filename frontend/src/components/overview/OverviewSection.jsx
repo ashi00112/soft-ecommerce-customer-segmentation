@@ -89,26 +89,73 @@ export default function OverviewSection() {
 
   return (
     <div className="overview-container">
-      {/* Hero Executive Summary */}
-      <section className="hero-box">
-        <div className="hero-tag">
-          <GitCommit className="hero-tag-icon" aria-hidden="true" />
-          <span>Analytical Architecture</span>
+      {/* Hero Executive Summary: Saturated Violet Block with Asymmetric Data Composition */}
+      <section className="hero-box bold-hero">
+        <div className="hero-grid">
+          <div className="hero-left">
+            <div className="hero-tag">
+              <span className="hero-tag-dot" aria-hidden="true" />
+              <span>SegmentFlow Intelligence</span>
+            </div>
+            <h2 className="hero-title">
+              Understand customers <br className="hero-br" />
+              beyond a single segment<span className="hero-lime-dot">.</span>
+            </h2>
+            <p className="hero-description">
+              Discover fuzzy customer memberships, identify ambiguous customer profiles, and prioritize retention using customer value and churn risk.
+            </p>
+            <div className="hero-badges">
+              <span className="hero-pill">Fuzzy C-Means (K=4, m=1.10)</span>
+              <span className="hero-pill">Normalized Shannon Entropy</span>
+              <span className="hero-pill">3-Factor Retention Prioritization</span>
+            </div>
+          </div>
+
+          <div className="hero-right" aria-hidden="true">
+            <div className="hero-data-artboard">
+              <div className="artboard-header">
+                <span className="artboard-title">Fuzzy Membership Matrix</span>
+                <span className="artboard-status">Continuous Affinities</span>
+              </div>
+              <div className="artboard-cards">
+                <div className="art-card art-card-1">
+                  <div className="art-card-top">
+                    <span className="art-num">01</span>
+                    <span className="art-label">Inactive / Churn Risk</span>
+                  </div>
+                  <div className="art-bar"><div className="art-fill fill-1" /></div>
+                </div>
+                <div className="art-card art-card-2">
+                  <div className="art-card-top">
+                    <span className="art-num">02</span>
+                    <span className="art-label">Low-Purchase High-Conv</span>
+                  </div>
+                  <div className="art-bar"><div className="art-fill fill-2" /></div>
+                </div>
+                <div className="art-card art-card-3">
+                  <div className="art-card-top">
+                    <span className="art-num">03</span>
+                    <span className="art-label">High-Value Active</span>
+                  </div>
+                  <div className="art-bar"><div className="art-fill fill-3" /></div>
+                </div>
+                <div className="art-card art-card-4">
+                  <div className="art-card-top">
+                    <span className="art-num">04</span>
+                    <span className="art-label">Low-Engagement</span>
+                  </div>
+                  <div className="art-bar"><div className="art-fill fill-4" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <h2 className="hero-title">
-          Fuzzy Customer Segmentation &amp; Retention Prioritization
-        </h2>
-        <p className="hero-description">
-          A dual-phase decision-support framework combining <strong>Fuzzy C-Means (FCM)</strong> soft
-          clustering with an empirical <strong>3-factor retention prioritization</strong> model.
-          Instead of forcing customers into rigid, single-cluster silos, the system captures
-          multi-segment affinity and boundary ambiguity to inform targeted retention resource allocation.
-        </p>
       </section>
 
       {/* End-to-End Decision Pipeline */}
       <section className="pipeline-section">
         <div className="section-header">
+          <span className="section-kicker">01 / DECISION PIPELINE</span>
           <h3 className="section-title">End-to-End Decision Pipeline</h3>
           <p className="section-subtitle">
             Systematic progression from raw behavioural features to actionable CRM intervention recommendations.
@@ -120,7 +167,7 @@ export default function OverviewSection() {
             const Icon = step.icon;
             return (
               <React.Fragment key={step.step}>
-                <div className="pipeline-step-card">
+                <div className={`pipeline-step-card pipeline-card-${step.step}`}>
                   <div className="step-header">
                     <span className="step-number">{step.step}</span>
                     <Icon className="step-icon" aria-hidden="true" />
@@ -140,93 +187,57 @@ export default function OverviewSection() {
         </div>
       </section>
 
-      {/* Feature Separation Callout: Clustering Inputs vs Post-Clustering Retention Inputs */}
-      <section className="separation-section">
-        <div className="section-header">
-          <h3 className="section-title">Methodological Feature Architecture</h3>
-          <p className="section-subtitle">
+      {/* Feature Architecture Callout: Black Block with 3 High-Impact Panels */}
+      <section className="separation-section bold-dark-section">
+        <div className="section-header section-header-light">
+          <span className="section-kicker kicker-lime">02 / FEATURE ARCHITECTURE</span>
+          <h3 className="section-title text-white">Methodological Feature Architecture</h3>
+          <p className="section-subtitle text-gray">
             Methodological decoupling of behavioural clustering from business impact evaluation.
           </p>
         </div>
 
-        <div className="grid-2">
-          {/* Clustering Inputs */}
-          <div className="card feature-card feature-card-clustering">
-            <div className="feature-card-header">
-              <div className="feature-badge clustering-badge">
-                <Sliders className="feature-icon" aria-hidden="true" />
-                <span>Clustering Inputs (FCM Stage)</span>
-              </div>
-              <h4 className="feature-card-title">12 Behavioural &amp; Engagement Features</h4>
-            </div>
-
-            <p className="feature-card-desc">
-              Features utilized exclusively by the Fuzzy C-Means preprocessing pipeline to discover organic customer groupings:
-            </p>
-
-            <ul className="feature-list">
-              <li>
-                <CheckCircle2 className="list-check" />
-                <span>
-                  <strong>10 Numerical Features (StandardScaler):</strong> tenure_months, total_purchases, avg_order_value_usd, days_since_last_purchase, return_count, complaint_count, satisfaction_score, email_open_rate, click_through_rate, conversion_rate.
-                </span>
-              </li>
-              <li>
-                <CheckCircle2 className="list-check" />
-                <span>
-                  <strong>2 Categorical Features (OneHotEncoder):</strong> shopping_channel (4 categories: In-Store, Marketplace, Mobile App, Online) and device_used (4 categories: Desktop, Mobile, Multiple, Tablet).
-                </span>
-              </li>
-              <li>
-                <CheckCircle2 className="list-check" />
-                <span>
-                  <strong>Transformed Model Space:</strong> 18 standardized continuous inputs (10 scaled numerical + 8 one-hot binary flags).
-                </span>
-              </li>
+        <div className="feature-panels-grid">
+          {/* Panel 1: Numerical Features (VIOLET) */}
+          <div className="feature-panel panel-violet">
+            <div className="panel-badge badge-on-violet">StandardScaler</div>
+            <h4 className="panel-title">10 Numerical Features</h4>
+            <p className="panel-desc">Behavioural &amp; engagement attributes scaled to zero mean, unit variance:</p>
+            <ul className="panel-list">
+              <li>tenure_months &amp; total_purchases</li>
+              <li>avg_order_value_usd &amp; days_since_last_purchase</li>
+              <li>return_count &amp; complaint_count</li>
+              <li>satisfaction_score (1–5)</li>
+              <li>email_open_rate, click_through_rate, conversion_rate</li>
             </ul>
+          </div>
 
-            <div className="feature-card-note">
-              <strong>Not Clustering Inputs:</strong> Age, gender, annual income, total_spent_usd, CLV, churn risk, RFM scores, existing category labels, profitability, and customer health score are intentionally excluded from clustering.
+          {/* Panel 2: Categorical Features (ELECTRIC LIME) */}
+          <div className="feature-panel panel-lime">
+            <div className="panel-badge badge-on-lime">OneHotEncoder</div>
+            <h4 className="panel-title">2 Categorical Features</h4>
+            <p className="panel-desc">Channel &amp; device attributes encoded into 8 binary indicator columns:</p>
+            <ul className="panel-list">
+              <li>shopping_channel (In-Store, Marketplace, Mobile App, Online)</li>
+              <li>device_used (Desktop, Mobile, Multiple, Tablet)</li>
+            </ul>
+            <div className="panel-summary-box">
+              10 Scaled + 8 Binary = <strong>18 Transformed Features</strong>
             </div>
           </div>
 
-          {/* Post-Clustering Inputs */}
-          <div className="card feature-card feature-card-retention">
-            <div className="feature-card-header">
-              <div className="feature-badge retention-badge">
-                <TrendingUp className="feature-icon" aria-hidden="true" />
-                <span>Post-Clustering Retention Inputs</span>
-              </div>
-              <h4 className="feature-card-title">Business Prioritization Signals</h4>
-            </div>
-
-            <p className="feature-card-desc">
-              External decision metrics intentionally introduced downstream after cluster formation:
-            </p>
-
-            <ul className="feature-list">
-              <li>
-                <CheckCircle2 className="list-check" />
-                <span>
-                  <strong>Customer Lifetime Value (CLV):</strong> Evaluated using the empirical development reference distribution (40,000 customers) via percentile rank (40% component weight).
-                </span>
-              </li>
-              <li>
-                <CheckCircle2 className="list-check" />
-                <span>
-                  <strong>Churn Risk Score (0–100):</strong> Normalized directly (churn_risk_score / 100.0) into a continuous vulnerability signal (40% component weight).
-                </span>
-              </li>
-              <li>
-                <CheckCircle2 className="list-check" />
-                <span>
-                  <strong>Segment Ambiguity Score (Normalized Shannon Entropy):</strong> Quantifies boundary overlap across soft membership degrees (20% component weight).
-                </span>
-              </li>
+          {/* Panel 3: Post-Clustering Signals (WHITE) */}
+          <div className="feature-panel panel-white">
+            <div className="panel-badge badge-on-white">Post-Clustering Only</div>
+            <h4 className="panel-title">Business Priority Signals</h4>
+            <p className="panel-desc">External financial &amp; risk metrics introduced downstream — never clustering inputs:</p>
+            <ul className="panel-list">
+              <li><strong>CLV (40% Weight):</strong> Evaluated via empirical CDF against 40,000 customers</li>
+              <li><strong>Churn Risk (40% Weight):</strong> Normalized score / 100.0</li>
+              <li><strong>Ambiguity (20% Weight):</strong> Normalized Shannon entropy across soft memberships</li>
             </ul>
-
-            <div className="feature-card-rationale">
-              <strong>Methodological Rationale:</strong> CLV and churn risk are intentionally excluded from cluster formation so that customer segments are formed from behavioural, experience and engagement characteristics. They are introduced afterward as business-prioritization signals.
+            <div className="panel-note-box">
+              <strong>Methodological Rationale:</strong> CLV and churn risk are excluded from clustering to ensure segments reflect genuine behavioural tendencies.
             </div>
           </div>
         </div>
@@ -235,6 +246,7 @@ export default function OverviewSection() {
       {/* Discovered Customer Segments (Live from Backend) */}
       <section className="clusters-section">
         <div className="section-header">
+          <span className="section-kicker">03 / DISCOVERED ARCHETYPES</span>
           <div className="section-header-row">
             <div>
               <h3 className="section-title">Discovered Customer Segments</h3>

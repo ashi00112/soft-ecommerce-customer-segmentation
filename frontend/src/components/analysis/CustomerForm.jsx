@@ -82,7 +82,7 @@ export default function CustomerForm({
         </div>
 
         {/* Section B: Customer Activity */}
-        <div className="form-section card">
+        <div className="form-section form-section-activity card">
           <div className="section-title-wrap">
             <ShoppingBag className="section-icon" aria-hidden="true" />
             <h4 className="form-section-title">B. Customer Activity</h4>
@@ -148,7 +148,7 @@ export default function CustomerForm({
         </div>
 
         {/* Section C: Customer Experience */}
-        <div className="form-section card">
+        <div className="form-section form-section-experience card">
           <div className="section-title-wrap">
             <HeartHandshake className="section-icon" aria-hidden="true" />
             <h4 className="form-section-title">C. Customer Experience</h4>
@@ -201,7 +201,7 @@ export default function CustomerForm({
         </div>
 
         {/* Section D: Digital Engagement */}
-        <div className="form-section card">
+        <div className="form-section form-section-engagement card">
           <div className="section-title-wrap">
             <MousePointerClick className="section-icon" aria-hidden="true" />
             <h4 className="form-section-title">D. Digital Engagement</h4>
@@ -256,7 +256,7 @@ export default function CustomerForm({
         </div>
 
         {/* Section E: Shopping Behaviour */}
-        <div className="form-section card">
+        <div className="form-section form-section-channel card">
           <div className="section-title-wrap">
             <Monitor className="section-icon" aria-hidden="true" />
             <h4 className="form-section-title">E. Shopping Behaviour</h4>
@@ -301,7 +301,7 @@ export default function CustomerForm({
         </div>
 
         {/* Section F: Retention Information */}
-        <div className="form-section card">
+        <div className="form-section form-section-retention card">
           <div className="section-title-wrap">
             <TrendingUp className="section-icon" aria-hidden="true" />
             <h4 className="form-section-title">F. Retention Information</h4>
