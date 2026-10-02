@@ -85,17 +85,42 @@ Result: **no K-Means configuration survived Rule 2.**
 | 4 | 14.34% | 0.2526 | pass | **fail** (< 0.9) |
 | 8 | 12.35% | 0.2859 | pass | **fail** (< 0.9) |
 
-Rule 3 (ranking) was never reached because nothing survived Rule 2. No final model was refit, and `best_config` in `kmeans_summary.json` is `null`.
+Rule 3 (ranking) was never reached because nothing survived Rule 2.
 
-This is a legitimate negative result, not a tuning failure: the behavioral features used here don't appear to contain well-separated, hard clusters at any evaluated K, under the group's required stability bar. **This is the best K-Means outcome for comparison in `06_Model_Comparison.ipynb` — it is not the group's final chosen model**, which is decided separately once every member's clustering results are compared.
+This is a legitimate negative result, not a tuning failure: the behavioral features used here don't appear to contain well-separated, hard clusters at any evaluated K, under the group's required stability bar.
+
+**Decision — best-effort final model:** despite failing Rule 2, the group decided to still produce a final K-Means model for cross-model comparison and artifact purposes, using **K=2** — the closest-to-stable candidate (mean ARI=0.7096, highest silhouette among the three). It is refit on the full development set (same config as baseline: `init='k-means++'`, `n_init=10`, `max_iter=300`, `random_state=42`) and carried through Sections 8-9 and the saved artifacts below. This is **not** a validated stable configuration — a different random seed can produce a meaningfully different 2-way split (ARI as low as ≈0 was observed against at least one seed and one subsample in Section 6) — so the metrics below should be read as illustrative, not as evidence of a reliable customer segmentation. `kmeans_summary.json`'s `status` field records this explicitly as `"best_effort_unstable_configuration"` (`is_stable_selection: false`), distinct from a true `"stable_configuration_selected"` outcome.
 
 ## 8. Holdout Evaluation
 
-**TBD** — no final model was selected in Section 7 (all candidates failed the stability rule), so the holdout `.predict()` step and the dev-vs-holdout comparison table were skipped in the notebook (`"Skipping holdout evaluation — no stable K-Means configuration was selected in Section 5."`). There is nothing to report here until the group revisits the ARI threshold and a `best_k` is actually selected.
+`.predict()` only, no refitting, on the best-effort K=2 model:
+
+| metric | development | holdout | abs diff |
+|---|---|---|---|
+| silhouette | 0.1203 | 0.1246 | 0.0042 |
+| davies_bouldin | 2.6792 | 2.6604 | 0.0188 |
+| calinski_harabasz | 3,072.2 | 795.5 | 2,276.6 |
+| min_cluster_pct | 16.65% | 16.96% | 0.31 pp |
+| max_cluster_pct | 83.36% | 83.04% | 0.31 pp |
+
+Silhouette, Davies-Bouldin, and cluster-size balance all generalise closely to the holdout set. Calinski-Harabasz drops sharply (as expected — it scales with sample size, and holdout is a quarter the size of development), so it isn't a meaningful generalisation signal on its own here.
 
 ## 9. Cluster Profiles
 
-**TBD** — for the same reason as Section 8: there is no final model, so the centroid heatmap and distinguishing-features step were skipped in the notebook (`"Skipping cluster profiling — Section 5 found no stable K-Means configuration to profile."`).
+Centroid heatmap for the best-effort K=2 model (scaled feature space):
+
+![Cluster centroids heatmap](../results/figures/kmeans/kmeans_cluster_centroids_heatmap.png)
+
+Cluster sizes: Cluster 0 = 33,342 (83.4%), Cluster 1 = 6,658 (16.6%).
+
+Top 3 distinguishing features by |centroid value|:
+
+| Cluster | Feature 1 | Feature 2 | Feature 3 |
+|---|---|---|---|
+| 0 (n=33,342, 83.4%) | `days_since_last_purchase`: −0.405 | `device_used_Desktop`: +0.254 | `shopping_channel_Mobile App`: +0.252 |
+| 1 (n=6,658, 16.6%) | `days_since_last_purchase`: +2.026 | `device_used_Desktop`: +0.254 | `shopping_channel_In-Store`: +0.254 |
+
+Cluster 1 is a small group of customers who purchased far longer ago than average (+2.03 SD on `days_since_last_purchase`); Cluster 0 is everyone else, skewed slightly toward more-recent purchasers. Given the instability flagged in Section 7, treat this as one illustrative partition rather than a definitive recency-based segmentation.
 
 ## 10. Limitations
 
@@ -112,14 +137,14 @@ This is a legitimate negative result, not a tuning failure: the behavioral featu
 | `results/kmeans/kmeans_baseline_results.csv` | Baseline K=2..8 metrics (inertia, silhouette, DB, CH, n_iter_, runtime, cluster sizes) |
 | `results/kmeans/kmeans_tuning_results.csv` | 25-run `init`×`n_init` grid results for candidate K=2,4,8 |
 | `results/kmeans/kmeans_stability_results.csv` | Per-K seed/subsample ARI and seed-metric mean/std |
-| `results/kmeans/kmeans_summary.json` | Structured summary record (status: `no_stable_configuration`); baseline, tuning, stability, selection-rule detail; `best_config`/`common_metrics`/`holdout_metrics` all `null` |
+| `results/kmeans/kmeans_summary.json` | Structured summary record (status: `best_effort_unstable_configuration`, `is_stable_selection: false`); baseline, tuning, stability, selection-rule detail, plus `best_config`/`common_metrics`/`holdout_metrics` for the best-effort K=2 model |
 | `results/figures/kmeans/kmeans_elbow_curve.png` | Inertia vs K |
 | `results/figures/kmeans/kmeans_metrics_vs_k.png` | Silhouette / DB / CH vs K |
 | `results/figures/kmeans/kmeans_stability_ari.png` | Mean ARI per K (seed vs subsample) |
-| `models/kmeans_best.joblib` | **Not produced** — no stable configuration to save |
-| `results/kmeans/kmeans_dev_assignments.csv` | **Not produced** — no final model to assign from |
-| `results/kmeans/kmeans_holdout_assignments.csv` | **Not produced** — no final model to assign from |
-| `results/figures/kmeans/kmeans_cluster_centroids_heatmap.png` | **Not produced** — no final model to profile |
+| `models/kmeans_final_model.pkl` | Best-effort final model (K=2) — fails the stability bar, saved for cross-model comparison per the group's decision |
+| `results/kmeans/kmeans_dev_assignments.csv` | Development-set cluster assignments from the best-effort K=2 model |
+| `results/kmeans/kmeans_holdout_assignments.csv` | Holdout-set cluster assignments (`.predict()` only) from the best-effort K=2 model |
+| `results/figures/kmeans/kmeans_cluster_centroids_heatmap.png` | Centroid heatmap for the best-effort K=2 model |
 
 ## 12. Viva Notes (Key Concepts)
 
