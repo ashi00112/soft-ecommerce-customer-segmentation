@@ -1,0 +1,72 @@
+{
+  "project_name": "Soft E-commerce Customer Segmentation and Retention Prioritization",
+  "model_name": "Fuzzy C-Means Customer Segmentation & Retention Prioritization",
+  "version": "1.0.0",
+  "final_clustering_model": {
+    "algorithm": "Fuzzy C-Means",
+    "n_clusters": 4,
+    "fuzziness_m": 1.1,
+    "initialization": "K-Means-informed"
+  },
+  "artifacts": {
+    "preprocessing_artifact": "models/modelling_preprocessor.pkl",
+    "fcm_model_artifact": "models/final_fcm_model.pkl",
+    "clv_reference_artifact": "models/development_clv_reference.npy",
+    "retention_config_artifact": "results/retention_prioritization_config.json"
+  },
+  "raw_clustering_features": [
+    "tenure_months",
+    "total_purchases",
+    "avg_order_value_usd",
+    "days_since_last_purchase",
+    "return_count",
+    "complaint_count",
+    "satisfaction_score",
+    "email_open_rate",
+    "click_through_rate",
+    "conversion_rate",
+    "shopping_channel",
+    "device_used"
+  ],
+  "business_features": [
+    "customer_lifetime_value_usd",
+    "churn_risk_score"
+  ],
+  "expected_transformed_feature_count": 18,
+  "transformed_feature_names": [
+    "tenure_months",
+    "total_purchases",
+    "avg_order_value_usd",
+    "days_since_last_purchase",
+    "return_count",
+    "complaint_count",
+    "satisfaction_score",
+    "email_open_rate",
+    "click_through_rate",
+    "conversion_rate",
+    "shopping_channel_In-Store",
+    "shopping_channel_Marketplace",
+    "shopping_channel_Mobile App",
+    "shopping_channel_Online",
+    "device_used_Desktop",
+    "device_used_Mobile",
+    "device_used_Multiple",
+    "device_used_Tablet"
+  ],
+  "cluster_mapping": {
+    "1": "Inactive / High-Churn-Risk Customers",
+    "2": "Low-Purchase High-Conversion Customers",
+    "3": "High-Value Active Customers",
+    "4": "Low-Engagement Customers"
+  },
+  "methodology": {
+    "clv_normalization": "development empirical CDF using np.searchsorted(..., side=\"right\")",
+    "clv_reference_population_size": 40000,
+    "churn_normalization": "churn_risk_score / 100.0",
+    "ambiguity_method": "normalized Shannon entropy",
+    "entropy_base": "natural log normalized by ln(4)",
+    "priority_weights_source": "results/retention_prioritization_config.json",
+    "priority_thresholds_source": "results/retention_prioritization_config.json",
+    "ambiguity_threshold_source": "results/retention_prioritization_config.json"
+  }
+}
