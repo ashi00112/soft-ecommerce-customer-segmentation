@@ -37,3 +37,9 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Frontend build & dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
