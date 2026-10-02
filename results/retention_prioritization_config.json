@@ -1,0 +1,29 @@
+{
+    "final_clustering_model": {
+        "algorithm": "Fuzzy C-Means",
+        "n_clusters": 4,
+        "fuzziness_m": 1.1,
+        "initialization": "K-Means-informed"
+    },
+    "ambiguity": {
+        "method": "normalized_entropy",
+        "high_ambiguity_threshold": 0.5311607057521214,
+        "threshold_source": "development_75th_percentile"
+    },
+    "retention_score": {
+        "clv_weight": 0.4,
+        "churn_weight": 0.4,
+        "ambiguity_weight": 0.2,
+        "score_scale": "0-100"
+    },
+    "priority_thresholds": {
+        "medium_threshold": 37.525823612710866,
+        "high_threshold": 50.69229828700424,
+        "threshold_source": "development_distribution"
+    },
+    "priority_definition": {
+        "high": "score >= development 80th percentile",
+        "medium": "development 50th percentile <= score < development 80th percentile",
+        "low": "score < development 50th percentile"
+    }
+}
