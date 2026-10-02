@@ -1,0 +1,2 @@
+K,linkage,metric,sample_n,sample_seed,silhouette_eval_n,actual_clusters,cluster_counts,cluster_percentages,silhouette,davies_bouldin,calinski_harabasz,fit_runtime_s
+3,ward,euclidean,2500,42,2500,3,"[1229, 375, 896]","[49.16, 15.0, 35.84]",0.04511851573494625,4.153411179711593,137.99630796154227,0.16135269997175783
