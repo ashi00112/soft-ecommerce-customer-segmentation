@@ -10,10 +10,13 @@ export default function Footer() {
       <div className="container footer-inner">
         <div className="footer-left">
           <p className="footer-title">
-            Soft E-commerce Customer Segmentation &amp; Retention Prioritization
+            <span className="footer-brand-name">SegmentFlow</span>
+            <span className="footer-lime-dot" aria-hidden="true" />
+            <span className="footer-sep">•</span>
+            <span className="footer-tagline">Soft Customer Segmentation &amp; Retention Intelligence</span>
           </p>
-          <p className="footer-course">
-            IT3051 Fundamentals of Data Mining
+          <p className="footer-academic">
+            Academic Data Mining Project
           </p>
         </div>
         <div className="footer-right">

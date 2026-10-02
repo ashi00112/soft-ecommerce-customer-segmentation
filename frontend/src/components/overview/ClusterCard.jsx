@@ -23,6 +23,7 @@ export default function ClusterCard({ cluster }) {
           <Tag className="cluster-icon" aria-hidden="true" />
           <span>Segment {cluster_id}</span>
         </div>
+        <span className="cluster-big-num">0{cluster_id}</span>
       </div>
 
       <h3 className="cluster-title">{cluster_name}</h3>

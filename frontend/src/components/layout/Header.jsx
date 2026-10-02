@@ -72,14 +72,15 @@ export default function Header({
         <div className="brand">
           <div className="brand-logo">
             <Layers className="brand-icon" aria-hidden="true" />
+            <span className="brand-dot" aria-hidden="true" />
           </div>
           <div className="brand-titles">
-            <h1 className="brand-title">
-              Soft E-commerce Customer Segmentation
-              <span className="brand-title-sub"> &amp; Retention Prioritization</span>
-            </h1>
+            <div className="brand-title-row">
+              <span className="brand-name">SegmentFlow</span>
+              <span className="brand-badge">Intelligence</span>
+            </div>
             <p className="brand-subtitle">
-              Decision Support System • IT3051 Fundamentals of Data Mining
+              Soft Customer Segmentation &amp; Retention Intelligence
             </p>
           </div>
         </div>
