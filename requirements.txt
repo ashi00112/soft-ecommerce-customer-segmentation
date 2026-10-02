@@ -7,3 +7,5 @@ scikit-fuzzy
 joblib
 jupyter
 ipykernel
+fastapi
+uvicorn
