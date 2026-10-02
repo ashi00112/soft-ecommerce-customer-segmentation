@@ -1,0 +1,23 @@
+{
+    "selected_model": "Fuzzy C-Means (FCM)",
+    "selected_K": 4,
+    "fuzziness_m": 1.1,
+    "initialization": "K-Means-informed",
+    "selection_basis": [
+        "Directly supports soft customer segmentation through membership degrees",
+        "Supports the planned Segment Ambiguity Score",
+        "Uses the complete 40,000-customer development dataset",
+        "Can assign memberships to unseen holdout customers",
+        "Shows strong development-to-holdout consistency",
+        "Produces four differentiated and business-interpretable customer profiles",
+        "K-Means-informed initialization produced locally robust solutions"
+    ],
+    "acknowledged_limitations": [
+        "FCM does not have the highest development Silhouette score",
+        "Absolute hard-label cluster separation is relatively weak",
+        "Random initialization produced unstable solutions",
+        "The selected solution depends on K-Means-informed initialization",
+        "The final choice is project-objective driven and not based on a single clustering metric"
+    ],
+    "alternative_model_observation": "GMM achieved stronger development hard-label separation and also supports soft assignments, but its Silhouette and Davies-Bouldin metrics deteriorated substantially on the holdout data and its selected solution produced two broad customer segments."
+}
