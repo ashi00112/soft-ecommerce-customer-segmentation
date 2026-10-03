@@ -1,5 +1,33 @@
 # Soft E-commerce Customer Segmentation and Retention Prioritization
 
+## Run the application locally
+
+Run these commands from the repository root. The API loads the saved preprocessing, Fuzzy C-Means, CLV reference, and retention configuration artifacts in `models/` and `results/`.
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m uvicorn src.backend.main:app --host 127.0.0.1 --port 8000
+```
+
+In a second terminal, start the dependency free frontend:
+
+```powershell
+py -m http.server 5173 --bind 127.0.0.1 --directory frontend/standalone
+```
+
+Open <http://127.0.0.1:5173>. The API health endpoint is <http://127.0.0.1:8000/api/health> and interactive API docs are at <http://127.0.0.1:8000/docs>. The frontend includes an example customer and shows segment memberships, ambiguity, priority, and a recommendation.
+
+The original React/Vite frontend remains in `frontend/src`. To use it instead, run `npm ci` and `npm run dev` from `frontend/` after starting the API. The standalone frontend is useful when npm packages cannot be downloaded.
+
+To run the backend checks:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests/backend -v
+```
+
+The Agglomerative notebook is a candidate model analysis. The deployed prediction API uses the selected Fuzzy C-Means model documented in `results/final_model_selection.json`.
+
 ## 1. Business Problem
 In competitive e-commerce environments, customer retention is substantially more cost-effective than customer acquisition. However, conventional customer segmentation frameworks often assign customers to rigid, mutually exclusive segments ("hard clustering"). Real-world customer behavior is continuous and multifaceted: a customer may exhibit browsing traits of bargain hunters while occasionally displaying the basket size of high-value shoppers.
 

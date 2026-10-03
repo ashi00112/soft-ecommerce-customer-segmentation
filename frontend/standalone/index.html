@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SegmentFlow | Customer analysis</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">S</span><span>SegmentFlow <small>Intelligence</small></span></div>
+      <div class="status" id="status" role="status">Checking API…</div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow">CUSTOMER SEGMENTATION · RETENTION PRIORITIZATION</div>
+        <h1>Understand every customer beyond a single segment<span>.</span></h1>
+        <p>Explore fuzzy memberships across four customer groups, see how clear the assignment is, and turn customer value and churn risk into a retention action.</p>
+        <div class="hero-stats">
+          <div><strong>04</strong><small>customer segments</small></div>
+          <div><strong>12</strong><small>behavioral inputs</small></div>
+          <div><strong>03</strong><small>retention signals</small></div>
+        </div>
+      </section>
+
+      <section class="segments" aria-labelledby="segments-title">
+        <div class="section-heading"><div><span class="eyebrow dark">MODEL OVERVIEW</span><h2 id="segments-title">Discovered segments</h2></div><span class="model-tag">Fuzzy C-Means · K = 4</span></div>
+        <div id="clusters" class="cluster-grid"><p class="muted">Loading segments…</p></div>
+      </section>
+
+      <section class="workspace" aria-labelledby="analysis-title">
+        <div class="section-heading"><div><span class="eyebrow dark">LIVE ANALYSIS</span><h2 id="analysis-title">Analyze a customer</h2></div><button class="text-button" id="sample-button" type="button">Fill example customer ↗</button></div>
+        <div class="workspace-grid">
+          <form id="customer-form" class="panel">
+            <div class="form-intro"><span class="step">01</span><div><h3>Customer data</h3><p>Enter behavior and engagement metrics. Rates are fractions from 0 to 1.</p></div></div>
+            <div id="fields"></div>
+            <div class="form-actions"><button class="primary-button" id="submit-button" type="submit">Analyze customer <span>→</span></button><button class="secondary-button" id="reset-button" type="reset">Clear</button></div>
+            <p id="form-error" class="error" role="alert" hidden></p>
+          </form>
+          <div class="panel result-panel" id="result-panel" aria-live="polite">
+            <div class="form-intro"><span class="step">02</span><div><h3>Analysis results</h3><p>Predictions appear here after submitting customer data.</p></div></div>
+            <div id="results" class="empty-state"><div class="empty-icon">◎</div><h4>Ready for analysis</h4><p>Fill in the form or use the example customer to see segment membership and a retention recommendation.</p></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>SegmentFlow · Fuzzy C-Means customer segmentation · CLV and churn are used after clustering.</footer>
+  </body>
+</html>
