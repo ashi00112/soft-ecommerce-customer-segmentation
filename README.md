@@ -73,10 +73,12 @@ All four algorithms were fit on the full 40,000-row development set (Agglomerati
 
 | Model | K | Dev Silhouette | Dev Davies-Bouldin | Dev Calinski-Harabasz | Holdout Silhouette | Holdout Davies-Bouldin | Soft Output |
 |---|---|---|---|---|---|---|---|
-| K-Means | 2 | 0.0644 | 3.746 | 2,789.4 | — (unstable, not finalized) | — | No |
+| K-Means (best-effort, K=2)* | 2 | 0.1203 | 2.679 | 3,072.2 | 0.1246 | 2.660 | No |
 | GMM | 2 | 0.1254 | 2.600 | 3,056.8 | 0.0653 | 3.725 | Yes |
 | **Fuzzy C-Means** | **4** | 0.0643 | 2.979 | 2,558.7 | 0.0617 | 2.979 | **Yes** |
 | Agglomerative (2,500-sample) | 2 | 0.1243 | 2.584 | 188.4 | — | — | No |
+
+*\*K-Means failed the project's own stability bar (mean ARI < 0.9 at every evaluated K — see Section 7 of [`docs/README_KMeans.md`](docs/README_KMeans.md)); this row is the closest-to-stable K=2 configuration, refit and evaluated anyway so K-Means has a representative result to compare against the other three algorithms. Its holdout numbers are real (`.predict()`-only, no refitting), but the underlying segmentation isn't validated as reproducible.*
 
 ### Final Selection: Fuzzy C-Means (K=4, m=1.1, K-Means-informed initialization)
 

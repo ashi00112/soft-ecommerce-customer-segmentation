@@ -1,5 +1,5 @@
 Model,Evaluation_Rows,K,Dev_Silhouette,Dev_Davies_Bouldin,Dev_Calinski_Harabasz,Holdout_Silhouette,Holdout_Davies_Bouldin,Holdout_Calinski_Harabasz,Soft_Output,Comparison_Note
-K-Means,40000,2,0.0644059453145241,3.7459830961018623,2789.398791943526,,,,False,Full development data; final selection did not satisfy defined stability requirement.
+K-Means,40000,2,0.12033935194435486,2.6792006254286576,3072.196112680663,0.12455437163572435,2.6603694026195486,795.5382466507291,False,Full development data; best-effort K=2 refit (did not meet the group's mean-ARI>=0.9 stability bar; see docs/README_KMeans.md).
 GMM,40000,2,0.125411288922534,2.5996063674627186,3056.768093261229,0.0653294230328356,3.7254599634437366,704.0367285712437,True,Full development data; probabilistic soft assignments available.
 FCM,40000,4,0.064314,2.978749,2558.748651,0.061701,2.979027,642.931401,True,Full development data; fuzzy memberships available; K-Means-informed initialization.
 Agglomerative,2500,2,0.1242968045901018,2.5844023577357045,188.35071578266528,,,,False,"Metrics are based on a reproducible 2,500-customer development sample."
