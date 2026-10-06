@@ -1,0 +1,330 @@
+/* ==========================================================================
+   HEADER — Glass-on-white, sharp brand mark, animated tab indicator
+   ========================================================================== */
+.app-header {
+  background-color: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  backdrop-filter: blur(var(--blur-glass));
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 4.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-md);
+  background: var(--gradient-black-glow);
+  position: relative;
+  border: 1px solid var(--color-black);
+  box-shadow: var(--shadow-soft-sm);
+}
+
+.brand-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--color-white);
+}
+
+.brand-dot {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-lime);
+  border-radius: 50%;
+  border: 2px solid var(--color-white);
+}
+
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-name {
+  font-size: var(--text-xl);
+  font-weight: 900;
+  color: var(--color-black);
+  letter-spacing: -0.03em;
+}
+
+.brand-badge {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-black);
+  background-color: var(--color-lime);
+  border: 1px solid var(--color-black);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--color-light);
+  padding: 0.3rem;
+  border-radius: 9999px;
+}
+
+.nav-tab-btn {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-black);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.nav-tab-icon {
+  position: relative;
+  z-index: 1;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Positioned descendants always paint above non-positioned inline
+   content regardless of DOM order/z-index:0, so the label needs its
+   own stacking context to stay above the absolutely-positioned
+   nav-tab-indicator sweeping behind it. */
+.nav-tab-btn > span:not(.nav-tab-indicator) {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-tab-btn:hover {
+  color: var(--color-violet);
+}
+
+.nav-tab-btn.active {
+  color: var(--color-white);
+}
+
+.nav-tab-indicator {
+  position: absolute;
+  inset: 0.3rem;
+  z-index: 0;
+  background: var(--gradient-violet);
+  border-radius: 9999px;
+  box-shadow: var(--glow-violet);
+}
+
+/* Status Badges */
+.header-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--border-subtle);
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft-xs);
+}
+
+.status-checking {
+  border-color: #FDE68A;
+  color: #B45309;
+  background: #FFFBEB;
+}
+
+.status-healthy {
+  background-color: var(--color-white);
+  border-color: var(--color-light-border);
+  color: var(--color-black);
+}
+
+.status-offline {
+  background-color: #FEF2F2;
+  border-color: #FECACA;
+  color: #991B1B;
+}
+
+.status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.dot-checking {
+  background-color: #F59E0B;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.dot-healthy {
+  background-color: var(--color-lime);
+  border: 1px solid var(--color-black);
+  box-shadow: 0 0 0 3px rgba(198, 255, 51, 0.25);
+  animation: pulse-soft 2.4s infinite ease-in-out;
+}
+
+.dot-offline {
+  background-color: #DC2626;
+}
+
+.status-meta {
+  padding-left: 0.375rem;
+  border-left: 1px solid var(--color-light-border);
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.status-retry-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  margin-left: 0.25rem;
+}
+
+.status-retry-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(198, 255, 51, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(198, 255, 51, 0.12); }
+}
+
+/* Main Content Area */
+.app-main {
+  flex: 1;
+  padding-top: 2.25rem;
+  padding-bottom: 4rem;
+}
+
+/* ==========================================================================
+   FOOTER — Solid Black with Electric Lime Accent
+   ========================================================================== */
+.app-footer {
+  background: var(--gradient-black-glow);
+  border-top: 2px solid var(--color-black);
+  padding: 2.25rem 0;
+  color: var(--color-white);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.footer-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.footer-brand-name {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--color-white);
+  letter-spacing: -0.02em;
+}
+
+.footer-lime-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-lime);
+  margin-right: 0.25rem;
+}
+
+.footer-sep {
+  color: var(--color-muted);
+  margin: 0 0.25rem;
+}
+
+.footer-tagline {
+  color: var(--color-muted-light);
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+.footer-academic {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.footer-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  background-color: var(--color-dark);
+  border: 1px solid #333333;
+  border-radius: var(--radius-sm);
+  color: var(--color-lime);
+}

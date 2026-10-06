@@ -1,5 +1,7 @@
 import React from 'react';
-import { Layers, Award, BarChart3 } from 'lucide-react';
+import { Layers, Award } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import AnimatedNumber from '../common/AnimatedNumber';
 
 const CLUSTER_NAMES = {
   1: 'Inactive / High-Churn-Risk Customers',
@@ -17,6 +19,7 @@ const CLUSTER_COLORS = {
 
 /**
  * Visualizes continuous Fuzzy C-Means membership degrees across all 4 clusters.
+ * Bars grow in sequence on mount, with the dominant cluster highlighted.
  *
  * @param {{
  *   memberships: { cluster_1: number, cluster_2: number, cluster_3: number, cluster_4: number },
@@ -31,6 +34,8 @@ export default function MembershipDistribution({
   maxMembership,
   membershipMargin,
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
   const clusterItems = [1, 2, 3, 4].map((id) => {
     const rawVal = memberships[`cluster_${id}`] || 0;
     const percentage = (rawVal * 100).toFixed(1);
@@ -61,17 +66,21 @@ export default function MembershipDistribution({
         <div className="membership-kpis">
           <div className="mini-kpi">
             <span className="mini-kpi-label">Dominant Strength</span>
-            <span className="mini-kpi-val text-accent">{(maxMembership * 100).toFixed(1)}%</span>
+            <span className="mini-kpi-val text-accent">
+              <AnimatedNumber value={maxMembership * 100} decimals={1} suffix="%" />
+            </span>
           </div>
           <div className="mini-kpi">
             <span className="mini-kpi-label">Separation Margin</span>
-            <span className="mini-kpi-val text-secondary">+{(membershipMargin * 100).toFixed(1)}%</span>
+            <span className="mini-kpi-val text-secondary">
+              +<AnimatedNumber value={membershipMargin * 100} decimals={1} suffix="%" />
+            </span>
           </div>
         </div>
       </div>
 
       <div className="membership-bars-list">
-        {clusterItems.map((item) => (
+        {clusterItems.map((item, idx) => (
           <div
             key={item.id}
             className={`membership-row ${item.isAssigned ? 'dominant-row' : ''}`}
@@ -85,12 +94,12 @@ export default function MembershipDistribution({
             </div>
 
             <div className="membership-bar-track">
-              <div
+              <motion.div
                 className="membership-bar-fill"
-                style={{
-                  width: `${Math.max(item.percentage, 1)}%`,
-                  backgroundColor: item.color,
-                }}
+                style={{ backgroundColor: item.color }}
+                initial={{ width: prefersReducedMotion ? `${Math.max(item.percentage, 1)}%` : 0 }}
+                animate={{ width: `${Math.max(item.percentage, 1)}%` }}
+                transition={{ duration: 0.7, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
               />
             </div>
 

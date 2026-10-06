@@ -1,8 +1,14 @@
 import React from 'react';
 import { HelpCircle, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import Gauge from '../common/Gauge';
+import AnimatedNumber from '../common/AnimatedNumber';
+
+const HIGH_AMBIGUITY_THRESHOLD = 0.531;
 
 /**
- * Visualizes Segment Ambiguity Score (Normalized Shannon Entropy) and ambiguity level.
+ * Visualizes Segment Ambiguity Score (Normalized Shannon Entropy) and
+ * ambiguity level, as an animated semicircle gauge with the real
+ * threshold marked.
  *
  * @param {{
  *   score: number,
@@ -41,26 +47,40 @@ export default function AmbiguityCard({ score, level }) {
         </div>
       </div>
 
-      <div className="ambiguity-score-display">
-        <div className="score-hero">
-          <span className="score-number">{score.toFixed(4)}</span>
-          <span className="score-scale">/ 1.0000 ({percentage}%)</span>
-        </div>
+      <div className="ambiguity-gauge-row">
+        <Gauge
+          value={score}
+          max={1}
+          size={148}
+          strokeWidth={14}
+          sweep={180}
+          rotation={180}
+          trackColor="rgba(255,255,255,0.22)"
+          fillColor="#C6FF33"
+          thresholdFraction={HIGH_AMBIGUITY_THRESHOLD}
+          thresholdColor="#FFFFFF"
+        >
+          <span className="gauge-center-value" style={{ fontSize: '1.5rem', color: '#FFFFFF' }}>
+            <AnimatedNumber value={score} decimals={4} />
+          </span>
+          <span className="gauge-center-sub" style={{ color: '#FFFFFF' }}>/ 1.0000</span>
+        </Gauge>
 
-        {/* Ambiguity Meter */}
-        <div className="ambiguity-meter-container">
-          <div className="meter-labels">
-            <span>0.0 (Pure Archetype)</span>
-            <span className="threshold-marker">Threshold ≈ 0.531</span>
-            <span>1.0 (Maximum Ambiguity)</span>
-          </div>
-          <div className="meter-track">
-            <div
-              className={`meter-fill ${isHigh ? 'fill-high' : 'fill-normal'}`}
-              style={{ width: `${Math.min(Math.max(score * 100, 2), 100)}%` }}
-            />
-            <div className="meter-threshold-line" style={{ left: '53.12%' }} />
-          </div>
+        <div className="score-hero" style={{ flex: 1, minWidth: '10rem' }}>
+          <span className="score-number">
+            <AnimatedNumber value={score} decimals={4} />
+          </span>
+          <span className="score-scale">/ 1.0000 ({percentage}%)</span>
+          <p
+            style={{
+              marginTop: '0.5rem',
+              fontSize: '0.75rem',
+              color: 'rgba(255,255,255,0.8)',
+              fontWeight: 600,
+            }}
+          >
+            High-ambiguity threshold ≈ {HIGH_AMBIGUITY_THRESHOLD.toFixed(3)} (marked on the gauge)
+          </p>
         </div>
       </div>
 

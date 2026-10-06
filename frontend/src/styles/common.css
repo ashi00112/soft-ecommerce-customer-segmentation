@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Alert, Loading, Tooltip, Gauge, Stacked-Bar & Utility Styles
+   ========================================================================== */
+
+/* ---- Color/background utility classes referenced across result cards ---- */
+.text-accent { color: var(--color-violet); }
+.text-secondary { color: var(--text-secondary); }
+.text-purple { color: var(--color-violet); }
+.text-teal { color: #0D9488; }
+.text-warning { color: #B45309; }
+.text-info { color: var(--color-violet); }
+.text-error { color: #E11D48; }
+
+.bg-blue-subtle { background-color: rgba(125, 57, 235, 0.12) !important; }
+.bg-amber-subtle { background-color: rgba(217, 119, 6, 0.12) !important; }
+.bg-purple-subtle { background-color: rgba(125, 57, 235, 0.12) !important; }
+
+/* ---- Gradient text accents (used sparingly on key headline words) ---- */
+.gradient-text {
+  background: var(--gradient-text-lime-violet);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.gradient-text-white-lime {
+  background: var(--gradient-text-white-lime);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---- Alerts ---- */
+.alert-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.alert-error { background-color: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+.alert-warning { background-color: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; }
+.alert-info { background-color: #F3EEFE; border: 1px solid rgba(125, 57, 235, 0.25); color: #4C1D95; }
+
+.alert-content { display: flex; align-items: flex-start; gap: 0.75rem; }
+.alert-icon-wrapper { flex-shrink: 0; margin-top: 0.125rem; }
+.alert-icon { width: 1.25rem; height: 1.25rem; }
+.alert-text { flex: 1; }
+.alert-title { font-size: 0.9375rem; font-weight: 800; margin-bottom: 0.25rem; }
+.alert-description { font-size: 0.8125rem; line-height: 1.5; }
+
+/* ---- Loading ---- */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2.5rem;
+  color: var(--color-black);
+}
+
+.spinner-icon { animation: spin 1s linear infinite; color: var(--color-violet); }
+.spinner-sm { width: 1.25rem; height: 1.25rem; }
+.spinner-md { width: 2rem; height: 2rem; }
+.spinner-lg { width: 2.75rem; height: 2.75rem; }
+.loading-message { font-size: 0.9375rem; font-weight: 700; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.inference-loading-overlay {
+  margin-top: 1.5rem;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+/* ---- Analysing-customer step sequence (replaces plain spinner on submit) ---- */
+.analyzing-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: stretch;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.analyzing-step {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--color-light);
+  border: 1px solid var(--border-subtle);
+}
+
+.analyzing-step.is-active { background: #F3EEFE; border-color: rgba(125, 57, 235, 0.3); }
+.analyzing-step.is-done { background: #ECFDF5; border-color: rgba(5, 150, 105, 0.25); }
+
+.analyzing-step-icon-wrap {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.analyzing-step.is-done .analyzing-step-icon-wrap { background: #059669; }
+.analyzing-step.is-active .analyzing-step-icon-wrap { background: var(--color-violet); }
+
+.analyzing-step-icon { width: 1rem; height: 1rem; }
+.analyzing-step-label { font-size: 0.875rem; font-weight: 700; color: var(--color-black); }
+
+/* ---- Info tooltip ---- */
+.info-tooltip { position: relative; display: inline-flex; align-items: center; }
+
+.info-tooltip-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--color-light);
+  color: var(--color-muted);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  padding: 0;
+}
+
+.info-tooltip-trigger:hover,
+.info-tooltip-trigger:focus-visible {
+  background: var(--color-violet);
+  color: var(--color-white);
+  border-color: var(--color-violet);
+}
+
+.info-tooltip-icon { width: 0.7rem; height: 0.7rem; }
+
+.info-tooltip-popover {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15rem;
+  max-width: 80vw;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft-md);
+  z-index: 40;
+  text-align: left;
+}
+
+.info-tooltip-popover::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--color-black);
+}
+
+/* ---- Gauge (SVG arc) ---- */
+.gauge-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-svg { display: block; }
+
+.gauge-track { fill: none; stroke-linecap: round; }
+.gauge-fill { fill: none; stroke-linecap: round; }
+.gauge-threshold-tick { stroke-linecap: round; }
+
+.gauge-center-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.gauge-center-value {
+  font-family: var(--font-mono);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.gauge-center-sub {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  opacity: 0.85;
+  margin-top: 0.2rem;
+}

@@ -12,10 +12,15 @@ import {
   Database,
   ArrowRight
 } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import ClusterCard from './ClusterCard';
+import ClusterCloudsHero from './ClusterCloudsHero';
 import LoadingSpinner from '../common/LoadingSpinner';
 import AlertMessage from '../common/AlertMessage';
+import RevealOnScroll from '../common/RevealOnScroll';
 import { getClusters } from '../../services/api';
+
+const HEADLINE_WORDS = ['Understand', 'customers', 'beyond', 'a', 'single', 'segment.'];
 
 /**
  * Overview Section Component
@@ -26,6 +31,7 @@ export default function OverviewSection() {
   const [clusters, setClusters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const fetchClusters = useCallback(async () => {
     setLoading(true);
@@ -98,11 +104,22 @@ export default function OverviewSection() {
               <span>SegmentFlow Intelligence</span>
             </div>
             <h2 className="hero-title">
-              Understand customers <br className="hero-br" />
-              beyond a single segment<span className="hero-lime-dot">.</span>
+              {HEADLINE_WORDS.map((word, idx) => (
+                <motion.span
+                  key={`${word}-${idx}`}
+                  className={`hero-title-word ${idx === HEADLINE_WORDS.length - 1 ? 'gradient-text-white-lime' : ''}`}
+                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {word}&nbsp;
+                </motion.span>
+              ))}
             </h2>
             <p className="hero-description">
-              Discover fuzzy customer memberships, identify ambiguous customer profiles, and prioritize retention using customer value and churn risk.
+              Find the customers who are still worth winning back. Discover fuzzy customer
+              memberships, identify ambiguous customer profiles, and prioritize retention using
+              customer value and churn risk.
             </p>
             <div className="hero-badges">
               <span className="hero-pill">Fuzzy C-Means (K=4, m=1.10)</span>
@@ -111,43 +128,8 @@ export default function OverviewSection() {
             </div>
           </div>
 
-          <div className="hero-right" aria-hidden="true">
-            <div className="hero-data-artboard">
-              <div className="artboard-header">
-                <span className="artboard-title">Fuzzy Membership Matrix</span>
-                <span className="artboard-status">Continuous Affinities</span>
-              </div>
-              <div className="artboard-cards">
-                <div className="art-card art-card-1">
-                  <div className="art-card-top">
-                    <span className="art-num">01</span>
-                    <span className="art-label">Inactive / Churn Risk</span>
-                  </div>
-                  <div className="art-bar"><div className="art-fill fill-1" /></div>
-                </div>
-                <div className="art-card art-card-2">
-                  <div className="art-card-top">
-                    <span className="art-num">02</span>
-                    <span className="art-label">Low-Purchase High-Conv</span>
-                  </div>
-                  <div className="art-bar"><div className="art-fill fill-2" /></div>
-                </div>
-                <div className="art-card art-card-3">
-                  <div className="art-card-top">
-                    <span className="art-num">03</span>
-                    <span className="art-label">High-Value Active</span>
-                  </div>
-                  <div className="art-bar"><div className="art-fill fill-3" /></div>
-                </div>
-                <div className="art-card art-card-4">
-                  <div className="art-card-top">
-                    <span className="art-num">04</span>
-                    <span className="art-label">Low-Engagement</span>
-                  </div>
-                  <div className="art-bar"><div className="art-fill fill-4" /></div>
-                </div>
-              </div>
-            </div>
+          <div className="hero-right">
+            <ClusterCloudsHero />
           </div>
         </div>
       </section>
@@ -166,22 +148,14 @@ export default function OverviewSection() {
           {pipelineSteps.map((step, idx) => {
             const Icon = step.icon;
             return (
-              <React.Fragment key={step.step}>
-                <div className={`pipeline-step-card pipeline-card-${step.step}`}>
-                  <div className="step-header">
-                    <span className="step-number">{step.step}</span>
-                    <Icon className="step-icon" aria-hidden="true" />
-                  </div>
-                  <h4 className="step-title">{step.title}</h4>
-                  <p className="step-desc">{step.desc}</p>
+              <RevealOnScroll key={step.step} index={idx} className={`pipeline-step-card pipeline-card-${step.step}`}>
+                <div className="step-header">
+                  <span className="step-number">{step.step}</span>
+                  <Icon className="step-icon" aria-hidden="true" />
                 </div>
-                {idx < pipelineSteps.length - 1 && (
-                  <div className="pipeline-connector" aria-hidden="true">
-                    <ArrowRight className="connector-arrow connector-arrow-h" />
-                    <ArrowDown className="connector-arrow connector-arrow-v" />
-                  </div>
-                )}
-              </React.Fragment>
+                <h4 className="step-title">{step.title}</h4>
+                <p className="step-desc">{step.desc}</p>
+              </RevealOnScroll>
             );
           })}
         </div>
@@ -199,7 +173,7 @@ export default function OverviewSection() {
 
         <div className="feature-panels-grid">
           {/* Panel 1: Numerical Features (VIOLET) */}
-          <div className="feature-panel panel-violet">
+          <RevealOnScroll index={0} className="feature-panel panel-violet">
             <div className="panel-badge badge-on-violet">StandardScaler</div>
             <h4 className="panel-title">10 Numerical Features</h4>
             <p className="panel-desc">Behavioural &amp; engagement attributes scaled to zero mean, unit variance:</p>
@@ -210,10 +184,10 @@ export default function OverviewSection() {
               <li>satisfaction_score (1–5)</li>
               <li>email_open_rate, click_through_rate, conversion_rate</li>
             </ul>
-          </div>
+          </RevealOnScroll>
 
           {/* Panel 2: Categorical Features (ELECTRIC LIME) */}
-          <div className="feature-panel panel-lime">
+          <RevealOnScroll index={1} className="feature-panel panel-lime">
             <div className="panel-badge badge-on-lime">OneHotEncoder</div>
             <h4 className="panel-title">2 Categorical Features</h4>
             <p className="panel-desc">Channel &amp; device attributes encoded into 8 binary indicator columns:</p>
@@ -224,10 +198,10 @@ export default function OverviewSection() {
             <div className="panel-summary-box">
               10 Scaled + 8 Binary = <strong>18 Transformed Features</strong>
             </div>
-          </div>
+          </RevealOnScroll>
 
           {/* Panel 3: Post-Clustering Signals (WHITE) */}
-          <div className="feature-panel panel-white">
+          <RevealOnScroll index={2} className="feature-panel panel-white">
             <div className="panel-badge badge-on-white">Post-Clustering Only</div>
             <h4 className="panel-title">Business Priority Signals</h4>
             <p className="panel-desc">External financial &amp; risk metrics introduced downstream — never clustering inputs:</p>
@@ -239,7 +213,7 @@ export default function OverviewSection() {
             <div className="panel-note-box">
               <strong>Methodological Rationale:</strong> CLV and churn risk are excluded from clustering to ensure segments reflect genuine behavioural tendencies.
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </section>
 
@@ -283,8 +257,10 @@ export default function OverviewSection() {
         {/* Live Cluster Cards */}
         {!loading && !error && clusters.length > 0 && (
           <div className="grid-4 cluster-grid">
-            {clusters.map((cluster) => (
-              <ClusterCard key={cluster.cluster_id} cluster={cluster} />
+            {clusters.map((cluster, idx) => (
+              <RevealOnScroll key={cluster.cluster_id} index={idx}>
+                <ClusterCard cluster={cluster} />
+              </RevealOnScroll>
             ))}
           </div>
         )}

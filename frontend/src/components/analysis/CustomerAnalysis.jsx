@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { UserCheck, CheckCircle2, Sliders, TrendingUp, AlertCircle } from 'lucide-react';
+import { UserCheck, CheckCircle2, Sliders, TrendingUp, AlertCircle, Wand2 } from 'lucide-react';
 import CustomerForm from './CustomerForm';
 import ResultsDashboard from '../results/ResultsDashboard';
-import LoadingSpinner from '../common/LoadingSpinner';
+import AnalyzingSequence from '../common/AnalyzingSequence';
 import AlertMessage from '../common/AlertMessage';
 import { validateCustomerInput } from './validation';
 import { predictCustomer } from '../../services/api';
+import { SAMPLE_CUSTOMERS } from './sampleCustomers';
 
 const INITIAL_FORM_STATE = {
   customer_id: '',
@@ -123,6 +124,15 @@ export default function CustomerAnalysis() {
     }
   };
 
+  const handleLoadSample = (sample) => {
+    setFormData({ ...INITIAL_FORM_STATE, ...sample.values });
+    setErrors({});
+    setValidationSuccess(false);
+    setValidatedPayload(null);
+    setPredictionResult(null);
+    setApiError(null);
+  };
+
   return (
     <div className="analysis-container">
       {/* Header Banner */}
@@ -207,6 +217,23 @@ export default function CustomerAnalysis() {
         </div>
       )}
 
+      {/* Demo helper: quick-fill sample customers (local only, no API change) */}
+      <div className="sample-customers-bar">
+        <span className="sample-customers-label">Try a sample customer:</span>
+        {SAMPLE_CUSTOMERS.map((sample) => (
+          <button
+            key={sample.key}
+            type="button"
+            className="sample-customer-btn"
+            onClick={() => handleLoadSample(sample)}
+            disabled={isLoading}
+          >
+            <Wand2 className="sample-customer-icon" aria-hidden="true" />
+            <span>{sample.label}</span>
+          </button>
+        ))}
+      </div>
+
       {/* Customer Input Form */}
       <CustomerForm
         formData={formData}
@@ -217,13 +244,10 @@ export default function CustomerAnalysis() {
         isSubmitting={isLoading}
       />
 
-      {/* Loading Spinner during API inference */}
+      {/* Polished loading sequence during API inference */}
       {isLoading && (
         <div className="inference-loading-overlay card">
-          <LoadingSpinner
-            message="Executing Fuzzy C-Means inference &amp; retention prioritization pipeline..."
-            size="lg"
-          />
+          <AnalyzingSequence />
         </div>
       )}
 

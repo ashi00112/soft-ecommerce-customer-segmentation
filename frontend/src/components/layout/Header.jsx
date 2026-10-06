@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layers, LayoutDashboard, UserCheck, BookOpen, Activity, AlertCircle, RefreshCw } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 /**
  * Top Application Header and Navigation Bar.
@@ -66,6 +67,8 @@ export default function Header({
     );
   };
 
+  const statusKey = healthStatus === 'healthy' ? 'healthy' : healthStatus === 'checking' ? 'checking' : 'offline';
+
   return (
     <header className="app-header">
       <div className="container header-inner">
@@ -98,6 +101,13 @@ export default function Header({
                   className={`nav-tab-btn ${isActive ? 'active' : ''}`}
                   aria-current={isActive ? 'page' : undefined}
                 >
+                  {isActive && (
+                    <motion.span
+                      className="nav-tab-indicator"
+                      layoutId="nav-tab-indicator"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                    />
+                  )}
                   <Icon className="nav-tab-icon" aria-hidden="true" />
                   <span>{item.label}</span>
                 </button>
@@ -106,7 +116,17 @@ export default function Header({
           </nav>
 
           <div className="header-status">
-            {getStatusBadge()}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={statusKey}
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                transition={{ duration: 0.2 }}
+              >
+                {getStatusBadge()}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

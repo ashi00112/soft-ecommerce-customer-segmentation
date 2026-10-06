@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AlertCircle } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import InfoTooltip from '../common/InfoTooltip';
 
 /**
  * Accessible form field group rendering label, input/select control,
- * optional helper text, and field-level validation error message.
+ * optional helper text, optional plain-language tooltip, and field-level
+ * validation error message (with a brief shake when a new error appears).
  *
  * @param {{
  *   id: string,
@@ -15,6 +18,7 @@ import { AlertCircle } from 'lucide-react';
  *   placeholder?: string,
  *   options?: Array<{ value: string, label: string }>,
  *   helperText?: string,
+ *   tooltip?: string,
  *   error?: string,
  *   required?: boolean,
  *   step?: string,
@@ -32,6 +36,7 @@ export default function FormFieldGroup({
   placeholder,
   options = [],
   helperText,
+  tooltip,
   error,
   required = false,
   step,
@@ -41,9 +46,23 @@ export default function FormFieldGroup({
   const isInvalid = Boolean(error);
   const errorId = `${id}-error`;
   const helperId = `${id}-helper`;
+  const prefersReducedMotion = useReducedMotion();
+  const [focused, setFocused] = useState(false);
+  const [shake, setShake] = useState(false);
+  const prevErrorRef = useRef(error);
+
+  useEffect(() => {
+    if (isInvalid && !prevErrorRef.current && !prefersReducedMotion) {
+      setShake(true);
+      const timer = setTimeout(() => setShake(false), 400);
+      return () => clearTimeout(timer);
+    }
+    prevErrorRef.current = error;
+    return undefined;
+  }, [error, isInvalid, prefersReducedMotion]);
 
   return (
-    <div className={`form-field-group ${isInvalid ? 'has-error' : ''}`}>
+    <div className={`form-field-group ${isInvalid ? 'has-error' : ''} ${shake ? 'field-shake' : ''}`}>
       <label htmlFor={id} className="field-label">
         <span className="label-text">{label}</span>
         {required ? (
@@ -51,6 +70,7 @@ export default function FormFieldGroup({
         ) : (
           <span className="optional-tag">(Optional)</span>
         )}
+        {tooltip && <InfoTooltip text={tooltip} />}
       </label>
 
       <div className="input-wrapper">
@@ -60,6 +80,8 @@ export default function FormFieldGroup({
             name={name}
             value={value}
             onChange={onChange}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
             className={`form-select ${isInvalid ? 'input-error' : ''}`}
             aria-invalid={isInvalid}
             aria-describedby={
@@ -81,6 +103,8 @@ export default function FormFieldGroup({
             type={type}
             value={value}
             onChange={onChange}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
             placeholder={placeholder}
             step={step}
             min={min}
@@ -92,6 +116,22 @@ export default function FormFieldGroup({
                 .filter(Boolean)
                 .join(' ') || undefined
             }
+          />
+        )}
+        {!prefersReducedMotion && (
+          <motion.span
+            className="field-focus-underline"
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              height: 2,
+              background: 'var(--color-violet)',
+              borderRadius: 2,
+            }}
+            initial={{ width: '0%' }}
+            animate={{ width: focused ? '100%' : '0%' }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           />
         )}
       </div>

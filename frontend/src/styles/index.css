@@ -1,0 +1,14 @@
+/* ==========================================================================
+   SegmentFlow Design System — Entry Point
+   Brand: BLACK + VIOLET + ELECTRIC LIME + WHITE, now split into partials
+   for a premium, animated redesign. Import order matters: tokens first.
+   ========================================================================== */
+@import './tokens.css';
+@import './base.css';
+@import './header-footer.css';
+@import './overview.css';
+@import './analysis-form.css';
+@import './results.css';
+@import './methodology.css';
+@import './common.css';
+@import './responsive.css';

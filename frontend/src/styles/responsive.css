@@ -1,0 +1,52 @@
+/* ==========================================================================
+   RESPONSIVENESS — Tested 1440 / 1024 / 768 / 390px
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .pipeline-stepper { grid-template-columns: repeat(3, 1fr); }
+  .feature-panels-grid { grid-template-columns: 1fr; }
+  .cluster-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .header-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .header-right { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+  .nav-tabs { width: 100%; overflow-x: auto; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-right { justify-content: flex-start; }
+  .results-grid-2,
+  .factors-grid,
+  .rec-bold-meta-grid { grid-template-columns: 1fr; }
+  .meth-two-col,
+  .meth-feature-split,
+  .meth-howto-grid,
+  .meth-tier-row { grid-template-columns: 1fr; }
+  .ambiguity-gauge-row { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 680px) {
+  .hero-title { font-size: var(--text-3xl); }
+  .pipeline-stepper { grid-template-columns: 1fr; }
+  .cluster-grid { grid-template-columns: 1fr; }
+  .hero-main-row { flex-direction: column; align-items: flex-start; }
+  .hero-kpis { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+  .hero-score-kpi { padding-left: 0; border-left: none; align-items: flex-start; }
+  .form-grid-2,
+  .form-grid-3 { grid-template-columns: 1fr; }
+  .form-actions-bar {
+    flex-direction: column;
+    position: static;
+    box-shadow: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .form-actions-bar .btn { width: 100%; }
+  .analysis-workflow { flex-direction: column; align-items: flex-start; }
+  .workflow-arrow { display: none; }
+  .meth-pipeline-steps { flex-direction: column; }
+  .meth-pipe-arrow { display: none; }
+  .membership-row { flex-wrap: wrap; }
+  .membership-label-wrap { width: 100%; }
+  .stacked-score-bar-wrap { width: 100%; }
+  .sample-customers-bar { flex-direction: column; align-items: stretch; }
+}

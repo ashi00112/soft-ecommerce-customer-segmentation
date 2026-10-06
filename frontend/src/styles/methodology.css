@@ -1,0 +1,285 @@
+/* ==========================================================================
+   METHODOLOGY PAGE — High-Contrast Academic Intelligence
+   ========================================================================== */
+.methodology-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.meth-pipeline-overview {
+  background-color: var(--color-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-soft-md);
+}
+
+.meth-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-violet);
+  margin-bottom: 0.75rem;
+}
+
+.meth-section-label-icon { width: 1rem; height: 1rem; }
+
+.meth-intro-text {
+  font-size: 0.9375rem;
+  color: var(--color-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 54rem;
+}
+
+.meth-pipeline-steps { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; }
+
+.meth-pipe-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  background-color: var(--color-light);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  min-width: 9.5rem;
+  flex: 1;
+}
+
+.meth-pipe-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--color-white);
+  background: var(--color-black);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.meth-pipe-label { font-size: 0.8125rem; font-weight: 800; color: var(--color-black); line-height: 1.25; }
+.meth-pipe-desc { font-size: 0.6875rem; color: var(--color-muted); margin-top: 0.15rem; line-height: 1.4; }
+.meth-pipe-arrow { font-size: 1.25rem; color: var(--color-violet); font-weight: 900; padding-top: 0.5rem; flex-shrink: 0; }
+
+/* Accordion */
+.meth-accordion { display: flex; flex-direction: column; gap: 1rem; }
+
+.meth-accordion-item {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-soft-xs);
+}
+
+.meth-open { box-shadow: var(--shadow-soft-md); border-color: rgba(125, 57, 235, 0.25); }
+
+.meth-accordion-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 1rem;
+}
+
+.meth-accordion-trigger:hover { background-color: var(--color-light); }
+
+.meth-trigger-left { display: flex; align-items: center; gap: 1rem; }
+
+.meth-trigger-icon-wrap {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--gradient-black-glow);
+  color: var(--color-white);
+}
+
+.meth-trigger-icon { width: 1.25rem; height: 1.25rem; color: var(--color-lime); }
+.meth-trigger-title { font-size: 1.1rem; font-weight: 800; color: var(--color-black); line-height: 1.3; }
+.meth-trigger-subtitle { font-size: 0.775rem; color: var(--color-muted); margin-top: 0.15rem; font-family: var(--font-mono); font-weight: 600; }
+.meth-chevron { width: 1.35rem; height: 1.35rem; color: var(--color-black); flex-shrink: 0; }
+
+.meth-accordion-body-inner { padding: 0 1.75rem 1.75rem; border-top: 1px solid var(--border-subtle); }
+
+.meth-body-intro {
+  font-size: 0.9375rem;
+  color: var(--color-secondary);
+  line-height: 1.65;
+  margin-top: 1.25rem;
+  margin-bottom: 1.5rem;
+  max-width: 52rem;
+}
+
+.meth-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; margin-bottom: 1.5rem; }
+.meth-col-title { font-size: 0.95rem; font-weight: 800; color: var(--color-black); margin-bottom: 0.875rem; }
+.meth-feature-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.25rem; }
+.meth-feature-col { display: flex; flex-direction: column; }
+.meth-feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.meth-feature-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8125rem; color: var(--color-secondary); line-height: 1.45; }
+.list-check { width: 1rem; height: 1rem; color: var(--color-violet); flex-shrink: 0; margin-top: 0.125rem; }
+.meth-feature-item strong { color: var(--color-black); }
+
+.meth-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  background-color: var(--color-light);
+  border-left: 3px solid var(--color-violet);
+  padding: 0.75rem 1rem;
+  font-size: 0.775rem;
+  color: var(--color-secondary);
+  line-height: 1.5;
+  margin-top: 0.875rem;
+}
+
+.meth-note-icon { width: 1rem; height: 1rem; color: var(--color-violet); flex-shrink: 0; margin-top: 0.125rem; }
+
+.meth-transform-result {
+  margin-top: 1rem;
+  background: var(--gradient-lime-soft);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 0.875rem 1.125rem;
+  color: var(--color-black);
+}
+
+.meth-transform-label { display: block; font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+.meth-transform-eq { font-size: 0.9375rem; font-family: var(--font-mono); font-weight: 700; }
+
+.meth-excluded-box {
+  margin-top: 0.875rem;
+  font-size: 0.775rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+  background: var(--color-light);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+}
+
+.meth-param-table { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.meth-param-row {
+  display: grid;
+  grid-template-columns: 10rem 4.5rem 1fr;
+  gap: 0.625rem;
+  font-size: 0.8125rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-light);
+  border: 1px solid var(--border-subtle);
+  align-items: center;
+}
+
+.meth-param-name { color: var(--color-black); font-weight: 700; }
+.meth-param-val { font-family: var(--font-mono); color: var(--color-violet); font-weight: 800; }
+.meth-param-note { color: var(--color-muted); font-size: 0.775rem; }
+
+.meth-segments-list { display: flex; flex-direction: column; gap: 0.625rem; }
+
+.meth-segment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  background: var(--color-light);
+  border-left: 3px solid;
+  border-radius: var(--radius-sm);
+}
+
+.meth-segment-id { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; flex-shrink: 0; width: 4.5rem; }
+.meth-segment-name { font-size: 0.8125rem; font-weight: 800; color: var(--color-black); }
+.meth-segment-desc { font-size: 0.75rem; color: var(--color-muted); margin-top: 0.15rem; line-height: 1.4; }
+
+.meth-concept-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--gradient-black-glow);
+  color: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft-sm);
+}
+
+.meth-concept-icon { width: 1.5rem; height: 1.5rem; color: var(--color-lime); flex-shrink: 0; margin-top: 0.125rem; }
+.meth-concept-title { font-size: 1rem; font-weight: 800; color: var(--color-white); margin-bottom: 0.35rem; }
+.meth-concept-text { font-size: 0.85rem; color: rgba(255, 255, 255, 0.9); line-height: 1.65; }
+.meth-concept-text strong { color: var(--color-lime); }
+
+.meth-formula-box {
+  background-color: var(--color-light);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.125rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.meth-formula-label { display: block; font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-muted); margin-bottom: 0.5rem; }
+.meth-formula-code { display: block; font-family: var(--font-mono); font-size: 1rem; color: var(--color-black); font-weight: 800; margin-bottom: 0.5rem; word-break: break-all; }
+.meth-formula-note { font-size: 0.775rem; color: var(--color-muted); line-height: 1.5; }
+
+.meth-ambiguity-example {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.meth-normal-example { background: var(--color-light); }
+.meth-high-example { background: #F3EEFE; border-color: rgba(125, 57, 235, 0.25); }
+
+.meth-example-badge { align-self: flex-start; display: inline-flex; align-items: center; padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 800; }
+.meth-example-values { font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 700; color: var(--color-black); }
+.meth-example-text { font-size: 0.775rem; color: var(--color-muted); line-height: 1.5; }
+
+.meth-factors-explainer { display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1.5rem; }
+
+.meth-factor-explain { padding: 0.875rem 1.125rem; border-radius: var(--radius-sm); border-left: 3px solid; }
+.meth-factor-explain-label { font-size: 0.8125rem; font-weight: 800; display: block; margin-bottom: 0.3rem; }
+.meth-factor-explain-text { font-size: 0.8125rem; color: var(--color-secondary); line-height: 1.55; }
+
+.meth-priority-tiers { border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; margin-top: 1.5rem; }
+.meth-tier-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+.meth-tier-item {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.meth-tier-name { font-size: 0.9375rem; font-weight: 800; }
+.meth-tier-range { font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 700; }
+.meth-tier-desc { font-size: 0.775rem; color: var(--color-secondary); line-height: 1.45; }
+
+/* Q&A Grid */
+.meth-howto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; padding-top: 0.875rem; }
+
+.meth-howto-item {
+  background-color: var(--color-light);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.meth-howto-q { font-size: 0.9375rem; font-weight: 800; color: var(--color-black); margin-bottom: 0.5rem; line-height: 1.35; }
+.meth-howto-a { font-size: 0.825rem; color: var(--color-secondary); line-height: 1.6; }

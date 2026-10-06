@@ -1,5 +1,6 @@
 import React from 'react';
 import { AlertCircle, AlertTriangle, Info, RefreshCw } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 
 /**
  * Reusable alert message banner for error, warning, or informative states.
@@ -31,8 +32,16 @@ export default function AlertMessage({
     }
   };
 
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <div className={`alert-box alert-${type}`} role="alert">
+    <motion.div
+      className={`alert-box alert-${type}`}
+      role="alert"
+      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="alert-content">
         <div className="alert-icon-wrapper">{getIcon()}</div>
         <div className="alert-text">
@@ -50,6 +59,6 @@ export default function AlertMessage({
           <span>{retryLabel}</span>
         </button>
       )}
-    </div>
+    </motion.div>
   );
 }

@@ -13,6 +13,30 @@ import {
   Info,
   Percent,
 } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import RevealOnScroll from '../common/RevealOnScroll';
+
+/**
+ * Animated wrapper for an accordion section's body: expands/collapses
+ * height smoothly instead of an abrupt conditional render.
+ */
+function AccordionBody({ isOpen, children }) {
+  return (
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          style={{ overflow: 'hidden' }}
+        >
+          <div className="meth-accordion-body-inner">{children}</div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
 
 /**
  * Full Methodology Section.
@@ -40,7 +64,7 @@ export default function MethodologySection() {
       </section>
 
       {/* Pipeline Overview Card */}
-      <section className="meth-pipeline-overview card" style={{ marginBottom: '1.5rem' }}>
+      <RevealOnScroll as="section" className="meth-pipeline-overview card" style={{ marginBottom: '1.5rem' }}>
         <div className="meth-section-label">
           <Database className="meth-section-label-icon" aria-hidden="true" />
           <span>End-to-End Analysis Pipeline</span>
@@ -72,13 +96,13 @@ export default function MethodologySection() {
             </React.Fragment>
           ))}
         </div>
-      </section>
+      </RevealOnScroll>
 
       {/* Accordion Sections */}
       <div className="meth-accordion">
 
         {/* Section 1: Preprocessing */}
-        <div className={`meth-accordion-item card ${openSection === 'preprocess' ? 'meth-open' : ''}`}>
+        <RevealOnScroll as="div" index={0} className={`meth-accordion-item card ${openSection === 'preprocess' ? 'meth-open' : ''}`}>
           <button
             className="meth-accordion-trigger"
             onClick={() => toggle('preprocess')}
@@ -98,8 +122,7 @@ export default function MethodologySection() {
               : <ChevronRight className="meth-chevron" aria-hidden="true" />}
           </button>
 
-          {openSection === 'preprocess' && (
-            <div className="meth-accordion-body">
+          <AccordionBody isOpen={openSection === 'preprocess'}>
               <p className="meth-body-intro">
                 Before any analysis, raw customer data is transformed into a standardized numerical format
                 that the clustering algorithm can process consistently.
@@ -180,12 +203,11 @@ export default function MethodologySection() {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
+          </AccordionBody>
+        </RevealOnScroll>
 
         {/* Section 2: Fuzzy C-Means */}
-        <div className={`meth-accordion-item card ${openSection === 'fcm' ? 'meth-open' : ''}`}>
+        <RevealOnScroll as="div" index={1} className={`meth-accordion-item card ${openSection === 'fcm' ? 'meth-open' : ''}`}>
           <button
             className="meth-accordion-trigger"
             onClick={() => toggle('fcm')}
@@ -205,8 +227,7 @@ export default function MethodologySection() {
               : <ChevronRight className="meth-chevron" aria-hidden="true" />}
           </button>
 
-          {openSection === 'fcm' && (
-            <div className="meth-accordion-body">
+          <AccordionBody isOpen={openSection === 'fcm'}>
               <p className="meth-body-intro">
                 Unlike traditional clustering where every customer belongs to exactly one group,
                 <strong> Fuzzy C-Means (FCM) </strong> allows each customer to have a partial membership
@@ -267,12 +288,11 @@ export default function MethodologySection() {
                   </p>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
+          </AccordionBody>
+        </RevealOnScroll>
 
         {/* Section 3: Segment Ambiguity */}
-        <div className={`meth-accordion-item card ${openSection === 'ambiguity' ? 'meth-open' : ''}`}>
+        <RevealOnScroll as="div" index={2} className={`meth-accordion-item card ${openSection === 'ambiguity' ? 'meth-open' : ''}`}>
           <button
             className="meth-accordion-trigger"
             onClick={() => toggle('ambiguity')}
@@ -292,8 +312,7 @@ export default function MethodologySection() {
               : <ChevronRight className="meth-chevron" aria-hidden="true" />}
           </button>
 
-          {openSection === 'ambiguity' && (
-            <div className="meth-accordion-body">
+          <AccordionBody isOpen={openSection === 'ambiguity'}>
               <p className="meth-body-intro">
                 Ambiguity measures how evenly or unevenly a customer's membership is spread across the four segments.
                 A customer with nearly all their membership concentrated in one segment is clear and decisive.
@@ -336,12 +355,11 @@ export default function MethodologySection() {
                   reflecting that borderline customers may be harder to engage through a single strategy.
                 </span>
               </div>
-            </div>
-          )}
-        </div>
+          </AccordionBody>
+        </RevealOnScroll>
 
         {/* Section 4: Retention Prioritization */}
-        <div className={`meth-accordion-item card ${openSection === 'retention' ? 'meth-open' : ''}`}>
+        <RevealOnScroll as="div" index={3} className={`meth-accordion-item card ${openSection === 'retention' ? 'meth-open' : ''}`}>
           <button
             className="meth-accordion-trigger"
             onClick={() => toggle('retention')}
@@ -361,8 +379,7 @@ export default function MethodologySection() {
               : <ChevronRight className="meth-chevron" aria-hidden="true" />}
           </button>
 
-          {openSection === 'retention' && (
-            <div className="meth-accordion-body">
+          <AccordionBody isOpen={openSection === 'retention'}>
               <p className="meth-body-intro">
                 After segmentation, a separate prioritization model determines which customers merit
                 the most immediate retention attention. CLV and Churn Risk are deliberately introduced
@@ -442,12 +459,11 @@ export default function MethodologySection() {
                   qualitative context not captured by these metrics.
                 </span>
               </div>
-            </div>
-          )}
-        </div>
+          </AccordionBody>
+        </RevealOnScroll>
 
         {/* Section 5: How to Use */}
-        <div className={`meth-accordion-item card ${openSection === 'howto' ? 'meth-open' : ''}`}>
+        <RevealOnScroll as="div" index={4} className={`meth-accordion-item card ${openSection === 'howto' ? 'meth-open' : ''}`}>
           <button
             className="meth-accordion-trigger"
             onClick={() => toggle('howto')}
@@ -467,8 +483,7 @@ export default function MethodologySection() {
               : <ChevronRight className="meth-chevron" aria-hidden="true" />}
           </button>
 
-          {openSection === 'howto' && (
-            <div className="meth-accordion-body">
+          <AccordionBody isOpen={openSection === 'howto'}>
               <div className="meth-howto-grid">
                 {[
                   {
@@ -502,9 +517,8 @@ export default function MethodologySection() {
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-        </div>
+          </AccordionBody>
+        </RevealOnScroll>
 
       </div>
     </div>

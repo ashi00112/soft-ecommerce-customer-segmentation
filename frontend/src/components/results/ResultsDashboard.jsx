@@ -1,13 +1,27 @@
 import React from 'react';
-import { ArrowLeft, CheckCircle2, User, Award, ShieldAlert, Sparkles } from 'lucide-react';
+import { ArrowLeft, User, Award, ShieldAlert, Sparkles } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import MembershipDistribution from './MembershipDistribution';
 import AmbiguityCard from './AmbiguityCard';
 import RetentionScoreCard from './RetentionScoreCard';
 import RecommendationCard from './RecommendationCard';
+import AnimatedNumber from '../common/AnimatedNumber';
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.18 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
 
 /**
  * Top-level ResultsDashboard component.
- * Displays the comprehensive analytical results for a single customer.
+ * Displays the comprehensive analytical results for a single customer,
+ * animating the sections in sequence: membership → ambiguity → retention
+ * → recommendation ("verdict").
  *
  * @param {{
  *   result: {
@@ -51,6 +65,8 @@ export default function ResultsDashboard({ result, onModify }) {
     recommendation,
   } = result;
 
+  const prefersReducedMotion = useReducedMotion();
+
   const getTierClass = () => {
     switch (retention_priority) {
       case 'High':
@@ -63,10 +79,42 @@ export default function ResultsDashboard({ result, onModify }) {
     }
   };
 
+  const summaryText = (() => {
+    const strength = Math.round(max_membership * 100);
+    const ambiguityClause =
+      ambiguity_level === 'High'
+        ? ', but also shows traits of other groups'
+        : ', with a clear, consistent profile';
+    return (
+      <>
+        This customer mostly looks like a <strong>{cluster_name}</strong> ({strength}% match)
+        {ambiguityClause} → <strong>{retention_priority} retention priority</strong>.
+      </>
+    );
+  })();
+
   return (
-    <div id="results-dashboard" className="results-dashboard">
+    <motion.div
+      id="results-dashboard"
+      className="results-dashboard"
+      role="region"
+      aria-live="polite"
+      aria-label="Customer analysis results"
+      variants={prefersReducedMotion ? undefined : containerVariants}
+      initial={prefersReducedMotion ? 'visible' : 'hidden'}
+      animate="visible"
+    >
+      {/* Plain-English one-line summary */}
+      <motion.div variants={prefersReducedMotion ? undefined : itemVariants} className="result-summary-banner">
+        <Sparkles className="result-summary-icon" aria-hidden="true" />
+        <p className="result-summary-text">{summaryText}</p>
+      </motion.div>
+
       {/* Results Header Hero: Saturated Black/Violet Brand Block */}
-      <section className="results-header-hero bold-result-hero">
+      <motion.section
+        variants={prefersReducedMotion ? undefined : itemVariants}
+        className="results-header-hero bold-result-hero"
+      >
         <div className="hero-top-row">
           <div className="customer-meta">
             <span className="customer-tag-badge">
@@ -93,7 +141,7 @@ export default function ResultsDashboard({ result, onModify }) {
             <div className="hero-cluster-header-wrap">
               <span className="hero-cluster-num-badge">0{assigned_cluster}</span>
               <div>
-                <h2 className="hero-cluster-name">{cluster_name}</h2>
+                <h2 className="hero-cluster-name gradient-text-white-lime">{cluster_name}</h2>
               </div>
             </div>
             <div className="hero-membership-degree-box">
@@ -101,7 +149,9 @@ export default function ResultsDashboard({ result, onModify }) {
               <div className="membership-degree-text-group">
                 <span className="membership-degree-label">Membership Degree</span>
                 <div className="membership-degree-numbers">
-                  <span className="membership-degree-value">{(max_membership * 100).toFixed(1)}%</span>
+                  <span className="membership-degree-value">
+                    <AnimatedNumber value={max_membership * 100} decimals={1} suffix="%" />
+                  </span>
                   <span className="membership-degree-raw">({max_membership.toFixed(4)})</span>
                 </div>
               </div>
@@ -119,15 +169,16 @@ export default function ResultsDashboard({ result, onModify }) {
 
             <div className="hero-score-kpi">
               <span className="hero-score-label">Composite Priority Index</span>
-              <span className="hero-score-num">{retention_priority_score.toFixed(1)} <small>/ 100</small></span>
+              <span className="hero-score-num">
+                <AnimatedNumber value={retention_priority_score} decimals={1} /> <small>/ 100</small>
+              </span>
             </div>
           </div>
         </div>
-      </section>
-
+      </motion.section>
 
       {/* Grid: Fuzzy Memberships & Segment Ambiguity */}
-      <div className="results-grid-2">
+      <motion.div variants={prefersReducedMotion ? undefined : itemVariants} className="results-grid-2">
         <MembershipDistribution
           memberships={memberships}
           assignedCluster={assigned_cluster}
@@ -139,27 +190,31 @@ export default function ResultsDashboard({ result, onModify }) {
           score={segment_ambiguity_score}
           level={ambiguity_level}
         />
-      </div>
+      </motion.div>
 
       {/* Retention Prioritization Component Breakdown */}
-      <RetentionScoreCard
-        priorityScore={retention_priority_score}
-        priorityTier={retention_priority}
-        clvComponent={clv_component}
-        churnComponent={churn_component}
-        ambiguityComponent={ambiguity_component}
-        rawClv={customer_lifetime_value_usd}
-        rawChurnScore={churn_risk_score}
-        rawAmbiguityScore={segment_ambiguity_score}
-        ambiguityLevel={ambiguity_level}
-      />
+      <motion.div variants={prefersReducedMotion ? undefined : itemVariants}>
+        <RetentionScoreCard
+          priorityScore={retention_priority_score}
+          priorityTier={retention_priority}
+          clvComponent={clv_component}
+          churnComponent={churn_component}
+          ambiguityComponent={ambiguity_component}
+          rawClv={customer_lifetime_value_usd}
+          rawChurnScore={churn_risk_score}
+          rawAmbiguityScore={segment_ambiguity_score}
+          ambiguityLevel={ambiguity_level}
+        />
+      </motion.div>
 
-      {/* Deterministic CRM Recommendation */}
-      <RecommendationCard
-        recommendation={recommendation}
-        clusterName={cluster_name}
-        priorityTier={retention_priority}
-      />
-    </div>
+      {/* Deterministic CRM Recommendation — the final "verdict" */}
+      <motion.div variants={prefersReducedMotion ? undefined : itemVariants}>
+        <RecommendationCard
+          recommendation={recommendation}
+          clusterName={cluster_name}
+          priorityTier={retention_priority}
+        />
+      </motion.div>
+    </motion.div>
   );
 }

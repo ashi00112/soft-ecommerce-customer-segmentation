@@ -194,6 +194,7 @@ export default function CustomerForm({
               onChange={handleChange}
               placeholder="e.g., 4"
               helperText="Customer rating on a scale of 1 to 5."
+              tooltip="How happy this customer says they are, from 1 (very dissatisfied) to 5 (very satisfied) — usually from a support or post-purchase survey."
               error={errors.satisfaction_score}
               required
             />
@@ -318,6 +319,7 @@ export default function CustomerForm({
               onChange={handleChange}
               placeholder="e.g., 45000"
               helperText="Projected/actual CLV in USD. Scaled against development reference."
+              tooltip="The total revenue this customer is expected to generate over their whole relationship with the business — a bigger number means a more valuable customer to retain."
               error={errors.customer_lifetime_value_usd}
               required
             />
@@ -333,6 +335,7 @@ export default function CustomerForm({
               onChange={handleChange}
               placeholder="e.g., 25"
               helperText="Risk score on a 0 to 100 scale."
+              tooltip="How likely this customer is to stop buying, from 0 (very unlikely to leave) to 100 (very likely to leave soon)."
               error={errors.churn_risk_score}
               required
             />
